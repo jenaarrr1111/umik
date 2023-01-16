@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,15 +28,14 @@ use Illuminate\Support\Facades\Route;
  *  Utk skrg, aku buat beda dulu aja lah, biar ada progres.
  */
 
-Route::get('/', function () {
-    return view('main-content/dashboard/index');
-});
+Route::get('/', [UserController::class, 'index']);
 
-/*
- * Kalau pake nama controllernya UserController
- * Route::get('/login', [UserController::class, 'index']);
- */
+Route::get('/dashboard', [UserController::class, 'index']);
 
-Route::get('/login', function () {
-    return view('main-content/login/index');
-});
+Route::get('/umkm', [UserController::class, 'showUmkm']);
+
+Route::get('/users', [UserController::class, 'showUser']);
+
+Route::get('/laporan', [UserController::class, 'showLaporan']);
+
+Route::get('/login', [UserController::class, 'login']);
