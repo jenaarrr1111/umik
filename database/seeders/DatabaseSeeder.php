@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
 
         // Utk seeding db, user_id nya ada di AlamatUmkmFactory
         // Klo mau dikomen gpp, soalnya masih aku juga masih agak bingung
-        AlamatUmkm::factory(5)->create();
+        // AlamatUmkm::factory(5)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
