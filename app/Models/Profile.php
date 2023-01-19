@@ -63,12 +63,12 @@ class Profile extends Authenticatable
     public function getData($level = "")
     {
         if ($level) {
-            $users = DB::table('users')
+            $users = DB::table($this->table)
                 ->latest()
                 ->where("level_user", "=", $level)
                 ->get();
         } else {
-            $users = DB::table('users')->latest()->get();
+            $users = DB::table($this->table)->latest()->get();
         }
 
         return $users;
