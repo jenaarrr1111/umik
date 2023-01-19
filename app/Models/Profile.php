@@ -13,6 +13,7 @@ class Profile extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table = 'profile';
     /**
      * The attributes that are mass assignable.
      *
