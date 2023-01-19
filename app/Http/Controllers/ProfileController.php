@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class UserController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,19 +18,6 @@ class UserController extends Controller
     {
         return view('main-content.dashboard.index', [
             'title' => 'Dashboard',
-        ]);
-    }
-
-    // Menampilkan semua user
-    public function showUser()
-    {
-        $users = DB::table('users')->latest()->get();
-        // DB::table('users')->latest()->dd();
-        // dd($users);
-        return view('main-content.users.index', [
-            'title' => 'Users',
-            // 'users' => User::latest(),
-            'users' => $users,
         ]);
     }
 

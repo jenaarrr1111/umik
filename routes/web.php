@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\DataUMKMController;
+use App\Http\Controllers\DataUserController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,14 +30,16 @@ use Illuminate\Support\Facades\Route;
  *  Utk skrg, aku buat beda dulu aja lah, biar ada progres.
  */
 
-Route::get('/', [UserController::class, 'index']);
+Route::get('/', [ProfileController::class, 'index']);
 
-Route::get('/dashboard', [UserController::class, 'index']);
+Route::get('/dashboard', [ProfileController::class, 'index']);
 
-Route::get('/umkm', [UserController::class, 'showUmkm']);
+// Menampilkan semua data umkm
+Route::get('/umkm', [DataUMKMController::class, 'index']);
 
-Route::get('/users', [UserController::class, 'showUser']);
+// Menampilkan semua data users
+Route::get('/users', [DataUserController::class, 'getData']);
 
-Route::get('/laporan', [UserController::class, 'showLaporan']);
+Route::get('/laporan', [ProfileController::class, 'showLaporan']);
 
-Route::get('/login', [UserController::class, 'login']);
+Route::get('/login', [ProfileController::class, 'login']);

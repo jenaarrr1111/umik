@@ -10,7 +10,7 @@
     </div>
     @else
 
-    <div class="p-5 shadow-xl min-h-[50%] overflow-auto">
+    <div class="p-5 shadow-xl min-h-[50%] overflow-auto mb-5">
         <x-tables.user :data="$users" />
     </div>
     @endif

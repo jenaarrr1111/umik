@@ -6,9 +6,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class Profile extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -55,5 +56,20 @@ class User extends Authenticatable
     public function umkms()
     {
         return $this->hasMany(AlamatUmkm::class, 'user_id');
+    }
+
+    // Ambil semua data users ataupun umkm
+    public function getData($level = "")
+    {
+        if ($level) {
+            $users = DB::table('users')
+                ->latest()
+                ->where("level_user", "=", $level)
+                ->get();
+        } else {
+            $users = DB::table('users')->latest()->get();
+        }
+
+        return $users;
     }
 }

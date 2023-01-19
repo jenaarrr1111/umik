@@ -25,6 +25,6 @@ class AlamatUmkm extends Model
     // Mendefinisikan relasi antara tabel `alamat_umkms` dan `users`
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(Profile::class, 'user_id');
     }
 }
