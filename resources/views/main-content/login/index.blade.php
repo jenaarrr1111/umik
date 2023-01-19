@@ -1,6 +1,6 @@
 <x-layout-login>
 <body>
-<form method="POST" >
+    <form method="POST" >
         @csrf
 
         <!-- Email Address -->
