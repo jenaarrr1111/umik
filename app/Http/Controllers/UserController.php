@@ -24,9 +24,13 @@ class UserController extends Controller
     // Menampilkan semua user
     public function showUser()
     {
+        $users = DB::table('users')->latest()->get();
+        // DB::table('users')->latest()->dd();
+        // dd($users);
         return view('main-content.users.index', [
             'title' => 'Users',
-            'users' => User::all(),
+            // 'users' => User::latest(),
+            'users' => $users,
         ]);
     }
 
