@@ -18,15 +18,6 @@ class DataUserController extends Controller
     // Menampilkan semua user
     public function getData()
     {
-        /* $users = DB::table('users')
-            ->select('nama', 'email', 'no_tlp', 'level_user')
-            ->latest()
-            ->get();
-
-        return view('main-content.users.index', [
-            'title' => 'Users',
-            'users' => $users,
-        ]); */
         return view('main-content.users.index', [
             'title' => 'Users',
             'users' => $this->users->getData(),
