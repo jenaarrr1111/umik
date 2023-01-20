@@ -25,7 +25,3 @@ Route::get('/users', [DataUserController::class, 'getData']);
 Route::post('/register', [SignInController::class, 'setData']);
 
 Route::post('/login', [SignInController::class, 'validasi']);
-
-/* Route::post('/register', function (Request $request) {
-    dd($request);
-}); */
