@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiControllers\DataUserController;
+use App\Http\Controllers\ApiControllers\ProfileController;
 use App\Http\Controllers\ApiControllers\SignInController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,8 +21,20 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 }); */
 
+// Menampilkan semua user data
 Route::get('/users', [DataUserController::class, 'getData']);
 
+// Register user
 Route::post('/register', [SignInController::class, 'setData']);
 
+// Login user
 Route::post('/login', [SignInController::class, 'validasi']);
+
+// Update data user dengan id = {id}
+Route::put('/users/{id}', [ProfileController::class, 'setData']);
+
+// Menampilkan detail user dengan id = {id}
+Route::get('/users/{id}', [ProfileController::class, 'getData']);
+
+// Menghapus data user
+Route::delete('/users/{id}', [ProfileController::class, 'delete']);

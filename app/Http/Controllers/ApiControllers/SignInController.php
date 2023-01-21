@@ -27,7 +27,6 @@ class SignInController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors());
         } else {
-
             $password = DB::table('profile')
                 ->select('password')
                 ->where('email', '=', $request['email'])
@@ -36,10 +35,12 @@ class SignInController extends Controller
 
             if (Hash::check($request['password'], $password)) {
                 return response()->json([
+                    'success' => 'true',
                     'message' => 'Login Berhasil',
-                ], 201);
+                ], 200);
             } else {
                 return response()->json([
+                    'success' => 'false',
                     'message' => 'Gagal login. Kredensial tidak sesuai'
                 ], 401);
             }
@@ -49,6 +50,7 @@ class SignInController extends Controller
     // Registrasi User
     public function setData(Request $request)
     {
+        // Mungkin bisa pakai store, supaya ga ngetik berulang"? (udh 2x ngulang)
         $validator = Validator::make($request->all(), [
             'username' => 'required',
             'nama' => 'required',
@@ -65,7 +67,12 @@ class SignInController extends Controller
             $userInput = $request->all();
 
             $user = Profile::create($userInput);
-            return response()->json($user, 201);
+            return response()
+                ->json([
+                    'success' => 'true',
+                    'message' => 'Berhasil registrasi.',
+                    'data' => $user
+                ], 201);
         }
     }
 }
