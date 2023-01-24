@@ -3,7 +3,7 @@
         <h1 class="text-3xl font-bold my-5">{{ $title }}</h1>
     </header>
 
-    @include('partials.search')
+    @include('partials.search', ['path' => '/users'])
 
     @if (count($users) == 0)
     <div class="p-5 shadow-xl min-h-[50%] overflow-auto">

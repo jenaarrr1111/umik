@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class AlamatUmkm extends Model
 {
     use HasFactory;
+
+    protected $table = 'alamat_umkms';
 
     protected $fillable = [
         'user_id',
@@ -32,5 +35,23 @@ class AlamatUmkm extends Model
     public function user()
     {
         return $this->belongsTo(Profile::class, 'user_id');
+    }
+
+    // Ambil data umkm
+    public function getData()
+    {
+        if (request('search')) {
+            $users = DB::table($this->table)
+                ->latest()
+                ->where('nama_umkm', 'like', '%' . request('search') . '%')
+                ->get();
+        } else {
+            $users = DB::table($this->table)
+                ->latest()
+                ->get();
+        }
+        // dd($users);
+
+        return $users;
     }
 }

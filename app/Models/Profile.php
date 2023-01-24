@@ -52,15 +52,17 @@ class Profile extends Authenticatable
     }
 
     // Ambil semua data users ataupun umkm
-    public function getData($level = '')
+    public function getData()
     {
-        if ($level == 'penjual') {
-            $users = DB::table('alamat_umkms')
+        if (request('search')) {
+            $users = DB::table($this->table)
+                ->latest()
+                ->where('nama', 'like', '%' . request('search') . '%')
+                ->get();
+        } else {
+            $users = DB::table($this->table)
                 ->latest()
                 ->get();
-            // dd($users);
-        } else {
-            $users = DB::table($this->table)->latest()->get();
         }
 
         return $users;
