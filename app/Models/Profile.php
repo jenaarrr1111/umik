@@ -56,17 +56,17 @@ class Profile extends Authenticatable
 
     public function umkms()
     {
-        return $this->hasMany(AlamatUmkm::class, 'user_id');
+        return $this->hasOne(AlamatUmkm::class, 'user_id');
     }
 
     // Ambil semua data users ataupun umkm
-    public function getData($level = "")
+    public function getData($level = '')
     {
-        if ($level) {
-            $users = DB::table($this->table)
+        if ($level == 'penjual') {
+            $users = DB::table('alamat_umkms')
                 ->latest()
-                ->where("level_user", "=", $level)
                 ->get();
+            // dd($users);
         } else {
             $users = DB::table($this->table)->latest()->get();
         }

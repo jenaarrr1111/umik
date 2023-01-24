@@ -23,14 +23,17 @@ class ProfileFactory extends Factory
             'no_tlp' => $this->faker->e164PhoneNumber(),
             'email' => $this->faker->safeEmail(),
 
-            /*
-            'nama_umkm' => $this->faker->company(),
-            'pemilik' => $this->faker->name(),
+
+            /* 'nama_umkm' => $this->faker->company(),
             // 'alamat_umkm' => $this->faker->company(),
             'email_umkm' => $this->faker->companyEmail(),
             'plat' => $this->faker->randomNumber(5, true),
-            'estimasi_wkt_pekerjaan' => $this->faker->randomElement([900, 1200, 1900]),
-             */
+            'estimasi_wkt_pekerjaan' => $this->faker->randomElement([
+                '00:15:00',
+                '00:17:00',
+                '00:20:00'
+            ]), */
+
 
             'level_user' => 'user',
             /* Jangan lupa ubah $fillable nya klo di sini diubah */

@@ -5,5 +5,15 @@
 
     @include('partials.search')
 
-    <p>Halo, ini adalah halaman {{ $title }}</p>
+    @if (count($umkm) == 0)
+    <div class="p-5 shadow-xl min-h-[50%] overflow-auto">
+        <p>Tidak ada umkm</p>
+    </div>
+    @else
+
+    <div class="p-5 shadow-lg bg-slate-50 min-h-[50%] overflow-auto mb-5">
+        <x-tables.umkm :data="$umkm" />
+    </div>
+    @endif
+
 </x-layout>

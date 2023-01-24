@@ -14,18 +14,19 @@ class DataUMKMController extends Controller
         $this->umkm = new Profile();
     }
 
-    public function index()
+    /* public function index()
     {
         return view('main-content.umkm.index', [
             'title' => 'UMKM',
         ]);
-    }
+    } */
 
     public function getData()
     {
-        /* return view('main-content.umkm.index', [
+        // dd($this->umkm->getData('penjual'));
+        return view('main-content.umkm.index', [
             'title' => 'UMKM',
             'umkm' => $this->umkm->getData('penjual'),
-        ]); */
+        ]);
     }
 }

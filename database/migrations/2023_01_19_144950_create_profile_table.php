@@ -21,14 +21,6 @@ return new class extends Migration
             $table->string('no_tlp');
             $table->string('email')->unique();
 
-
-            $table->string('nama_umkm')->nullable();
-            // $table->longText('alamat_umkm')->nullable();
-            $table->string('email_umkm')->nullable();
-            $table->string('plat')->nullable();
-            $table->integer('estimasi_wkt_pekerjaan')->nullable();
-
-
             $table->enum('level_user', ['user', 'penjual', 'admin_keseluruhan']);
 
             /*
@@ -48,8 +40,6 @@ return new class extends Migration
              *   - Diambil dari tabel `alamat_umkm`
              *   - Apa primary key nya tabel `alamat_umkm`
              *   - Sementara dikomen dulu, utk liat hasil data yg lain
-             * Untuk membedakan Admin Keseluruhan dengan Penjual dan Pembeli?
-             *   - Bisa pakai kolom level_user ? ada ide lain gak?
              */
 
             $table->timestamp('email_verified_at')->nullable();

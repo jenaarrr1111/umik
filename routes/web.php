@@ -35,7 +35,7 @@ Route::get('/', [ProfileController::class, 'index']);
 Route::get('/dashboard', [ProfileController::class, 'index']);
 
 // Menampilkan semua data umkm
-Route::get('/umkm', [DataUMKMController::class, 'index']);
+Route::get('/umkm', [DataUMKMController::class, 'getData']);
 
 // Menampilkan semua data users
 Route::get('/users', [DataUserController::class, 'getData']);
