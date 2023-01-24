@@ -34,11 +34,28 @@ Route::get('/', [ProfileController::class, 'index']);
 
 Route::get('/dashboard', [ProfileController::class, 'index']);
 
+/* ================
+ * | Bagian  UMKM |
+ * ================
+ */
+
 // Menampilkan semua data umkm
 Route::get('/umkm', [DataUMKMController::class, 'getData']);
 
+// Menampilkan data produk umkm yg memiliki id = {id}
+Route::get('/umkm/{id}', [DataUMKMController::class, 'getData']);
+
+/* =============== */
+
+/* ===============
+ * | Bagian User |
+ * ===============
+ */
+
 // Menampilkan semua data users
 Route::get('/users', [DataUserController::class, 'getData']);
+
+/* =============== */
 
 Route::get('/laporan', [ProfileController::class, 'showLaporan']);
 
