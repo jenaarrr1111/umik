@@ -24,14 +24,6 @@ class Profile extends Authenticatable
         'username',
         'no_tlp',
         'email',
-
-        'nama_umkm',
-        'pemilik',
-        // 'alamat_umkm',
-        'email_umkm',
-        'plat',
-        'estimasi_wkt_pekerjaan',
-
         'password',
     ];
 

@@ -24,7 +24,11 @@ return new class extends Migration
             // ('nm_lengkap') => jadi 'pemilik' wkt diambil utk jadi data_umkm
             // $table->string('nama_lengkap');
             $table->string('nama_lengkap');
-            // ('no_tlp') => jadi 'no_tlp' wkt diambil utk jadi data_umkm
+            $table->string('nama_umkm');
+            $table->string('email_umkm');
+            $table->string('plat');
+            $table->time('estimasi_wkt_pekerjaan');
+
             $table->string('no_tlp');
             $table->string('provinsi');
             $table->string('kota');

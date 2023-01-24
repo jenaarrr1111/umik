@@ -31,21 +31,7 @@ class DatabaseSeeder extends Seeder
 
         Profile::factory(4)->create(['level_user' => 'penjual']);
         Profile::factory(6)->create();
-
-        // Utk seeding db, user_id nya ada di AlamatUmkmFactory
-        // Klo mau dikomen gpp, soalnya masih aku juga masih agak bingung
-        for ($i = 0; $i < 4; $i++) {
-            AlamatUmkm::factory()->create([
-                'nama_umkm' => fake()->unique()->company(),
-                'email_umkm' => fake()->unique()->companyEmail(),
-                'plat' => fake()->randomNumber(5, true),
-                'estimasi_wkt_pekerjaan' => fake()->randomElement([
-                    '00:15:00',
-                    '00:17:00',
-                    '00:20:00'
-                ]),
-            ]);
-        }
+        AlamatUmkm::factory(4)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

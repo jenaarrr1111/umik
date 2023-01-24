@@ -22,6 +22,16 @@ class AlamatUmkmFactory extends Factory
             // 'user_id' => Profile::where('level_user', 'penjual')->inRandomOrder()->value('id'),
             'user_id' => $this->faker->unique()
                 ->numberBetween(2, 5),
+
+            'nama_umkm' => $this->faker->unique()->company(),
+            'email_umkm' => $this->faker->unique()->companyEmail(),
+            'plat' => $this->faker->randomNumber(5, true),
+            'estimasi_wkt_pekerjaan' => $this->faker->randomElement([
+                '00:15:00',
+                '00:17:00',
+                '00:20:00'
+            ]),
+
             'nama_lengkap' => $this->faker->name(),
             'no_tlp' => $this->faker->unique()->e164PhoneNumber(),
             'provinsi' => $this->faker->city(), // utk skrg provinsi jadi kota dulu hehe

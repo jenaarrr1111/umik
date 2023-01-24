@@ -11,7 +11,13 @@ class AlamatUmkm extends Model
 
     protected $fillable = [
         'user_id',
+
         'nama_lengkap',
+        'nama_umkm',
+        'email_umkm',
+        'plat',
+        'estimasi_wkt_pekerjaan',
+
         'no_tlp',
         'provinsi',
         'kota',
