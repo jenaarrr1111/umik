@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DataProdukController;
 use App\Http\Controllers\DataUMKMController;
 use App\Http\Controllers\DataUserController;
 use App\Http\Controllers\ProfileController;
@@ -34,19 +35,6 @@ Route::get('/', [ProfileController::class, 'index']);
 
 Route::get('/dashboard', [ProfileController::class, 'index']);
 
-/* ================
- * | Bagian  UMKM |
- * ================
- */
-
-// Menampilkan semua data umkm
-Route::get('/umkm', [DataUMKMController::class, 'getData']);
-
-// Menampilkan data produk umkm yg memiliki id = {id}
-Route::get('/umkm/{id}', [DataUMKMController::class, 'getData']);
-
-/* =============== */
-
 /* ===============
  * | Bagian User |
  * ===============
@@ -55,8 +43,25 @@ Route::get('/umkm/{id}', [DataUMKMController::class, 'getData']);
 // Menampilkan semua data users
 Route::get('/users', [DataUserController::class, 'getData']);
 
+/* ===============
+ * | Bagian UMKM |
+ * ===============
+ */
+
+// Menampilkan semua data umkm
+Route::get('/umkm', [DataUMKMController::class, 'getData']);
+
 /* =============== */
 
+/* ======================
+ * | Bagian Data Produk |
+ * ======================
+ */
+
+// Menampilkan data produk umkm yg memiliki id = {id}
+Route::get('/umkm/{id}', [DataProdukController::class, 'getData'])->whereNumber('id');
+
+/* =============== */
 Route::get('/laporan', [ProfileController::class, 'showLaporan']);
 
 Route::get('/login', [ProfileController::class, 'login']);

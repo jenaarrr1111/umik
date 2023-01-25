@@ -37,6 +37,12 @@ class AlamatUmkm extends Model
         return $this->belongsTo(Profile::class, 'user_id');
     }
 
+    // Relasi antara tabel `alamat_umkms` dan `data_produk`
+    public function dataProduk()
+    {
+        return $this->hasMany(DataProduk::class, 'user_id');
+    }
+
     // Ambil data umkm
     public function getData()
     {

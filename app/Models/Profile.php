@@ -46,7 +46,7 @@ class Profile extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function umkms()
+    public function umkm()
     {
         return $this->hasOne(AlamatUmkm::class, 'user_id');
     }

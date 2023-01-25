@@ -23,25 +23,6 @@ return new class extends Migration
 
             $table->enum('level_user', ['user', 'penjual', 'admin_keseluruhan']);
 
-            /*
-             * Keterangan:
-             * Untuk ('estimasi_wkt_pekerjaan')
-             *   - Bisa diisi penjual sendiri
-             *   - Tipenya int atau time enaknya? Utk skrg, aku pake integer.
-             *   Jadi, wkt nya disimpan dlm satuan detik.
-             *   - Maksimal 30 menit
-             * Untuk ('email_umkm') dan ('pemilik')
-             *   - Bisa sama ataupun beda dengan ('email') dan ('nama'), jadi
-             *   tergantung orangnya
-             * Untuk ('pemilik') dan ('not')
-             *   - Bisa sama ataupun beda dengan ('email') dan ('nama'), jadi
-             *   tergantung orangnya
-             * Untuk ('alamat_umkm')
-             *   - Diambil dari tabel `alamat_umkm`
-             *   - Apa primary key nya tabel `alamat_umkm`
-             *   - Sementara dikomen dulu, utk liat hasil data yg lain
-             */
-
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

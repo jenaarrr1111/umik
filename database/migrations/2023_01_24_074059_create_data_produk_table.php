@@ -13,8 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('data_produks', function (Blueprint $table) {
+        Schema::create('data_produk', function (Blueprint $table) {
             $table->id();
+
+            /*
+             * Menambahkan foreign key
+             * Foreign key nya diambil dari kolom `user_id` di tabel alamat_umkm
+             */
+            $table->foreignId('user_id') // nama kolom
+                ->constrained('alamat_umkms', 'user_id') // nama table dan kolom yg jadi ref
+                ->onDelete('cascade');
+            $table->string('nama_produk');
+            $table->string('kategori');
+
             $table->timestamps();
         });
     }
