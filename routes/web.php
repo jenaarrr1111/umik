@@ -4,6 +4,7 @@ use App\Http\Controllers\DataProdukController;
 use App\Http\Controllers\DataUMKMController;
 use App\Http\Controllers\DataUserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SignInController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,4 +65,6 @@ Route::get('/umkm/{id}', [DataProdukController::class, 'getData'])->whereNumber(
 /* =============== */
 Route::get('/laporan', [ProfileController::class, 'showLaporan']);
 
-Route::get('/login', [ProfileController::class, 'login']);
+Route::get('/login', [SignInController::class, 'index'])->name('login');
+Route::post('/login', [SignInController::class, 'login']);
+

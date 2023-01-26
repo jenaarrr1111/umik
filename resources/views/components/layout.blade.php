@@ -19,7 +19,7 @@
         <div class="logo-container py-2 md:py-4 border-r border-gray-600 bg-white">
             <a href="/" class="h-full md:w-11/12 mx-auto flex align-middle">
                 <img src="images/logo.png" alt="">
-                <span class="md:my-auto font-bold text-xl px-3 md:px-5">LOGO</span>
+                <span class="md:my-auto font-bold text-2xl px-2 md:px-5">UMIK</span>
             </a>
         </div>
 
