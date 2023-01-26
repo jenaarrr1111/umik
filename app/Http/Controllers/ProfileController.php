@@ -37,11 +37,6 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function login()
-    {
-        return view('main-content.login.index');
-    }
-
     /**
      * Show the form for creating a new resource.
      *
