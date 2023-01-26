@@ -24,14 +24,6 @@ class Profile extends Authenticatable
         'username',
         'no_tlp',
         'email',
-
-        'nama_umkm',
-        'pemilik',
-        // 'alamat_umkm',
-        'email_umkm',
-        'plat',
-        'estimasi_wkt_pekerjaan',
-
         'password',
     ];
 
@@ -54,21 +46,23 @@ class Profile extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function umkms()
+    public function umkm()
     {
-        return $this->hasMany(AlamatUmkm::class, 'user_id');
+        return $this->hasOne(AlamatUmkm::class, 'user_id');
     }
 
     // Ambil semua data users ataupun umkm
-    public function getData($level = "")
+    public function getData()
     {
-        if ($level) {
-            $users = DB::table('users')
+        if (request('search')) {
+            $users = DB::table($this->table)
                 ->latest()
-                ->where("level_user", "=", $level)
+                ->where('nama', 'like', '%' . request('search') . '%')
                 ->get();
         } else {
-            $users = DB::table('users')->latest()->get();
+            $users = DB::table($this->table)
+                ->latest()
+                ->get();
         }
 
         return $users;
