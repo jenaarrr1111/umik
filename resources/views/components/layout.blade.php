@@ -13,20 +13,20 @@
     <title>UMIK</title>
 </head>
 
-<body class="min-h-full md:grid grid-cols-[1fr_80%] grid-rows-[90px_1fr]">
+<body class="min-h-full md:grid grid-cols-[1fr_80%]">
 
+    <div class="col-start-1 fixed w-full md:w-[20%] md:h-full top-0 z-10">
+        <div class="logo-container py-2 md:py-4 border-r border-gray-600 bg-white">
+            <a href="/" class="h-full md:w-11/12 mx-auto flex align-middle">
+                <img src="images/logo.png" alt="">
+                <span class="md:my-auto font-bold text-xl px-3 md:px-5">LOGO</span>
+            </a>
+        </div>
 
-    <div class="logo-container py-2 border-r border-gray-600">
-        <a href="/" class="h-full md:w-11/12 mx-auto flex align-middle">
-            <img src="images/logo.png" alt="">
-            <span class="md:my-auto font-bold text-xl px-2 md:px-5">LOGO</span>
-        </a>
+        <x-sidebar />
     </div>
-    <!-- 3F4E4F -->
 
-    <x-sidebar />
-
-    <main class="row-span-2 w-11/12 mx-auto">
+    <main class="col-start-2 w-11/12 mx-auto">
         {{ $slot }}
     </main>
 
