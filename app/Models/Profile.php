@@ -66,6 +66,7 @@ class Profile extends Authenticatable
                 ->get();
         } else {
             $users = DB::table($this->table)
+                ->select(['nama', 'username', 'email', 'no_tlp', 'level_user', 'id'])
                 ->latest()
                 ->get();
         }
