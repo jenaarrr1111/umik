@@ -25,6 +25,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('nama_produk');
             $table->string('kategori');
+            $table->decimal('harga');
 
             $table->timestamps();
         });
@@ -37,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data_produks');
+        Schema::dropIfExists('data_produk');
     }
 };

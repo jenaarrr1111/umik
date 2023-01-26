@@ -24,6 +24,12 @@ class DataProduk extends Model
         return $this->belongsTo(AlamatUmkm::class, 'user_id');
     }
 
+    // Relasi tabel `data_produk` dgn tabel `pesanan`
+    public function pesanan()
+    {
+        return $this->belongsTo(Pesanan::class, 'produk_id');
+    }
+
     public function getData($id)
     {
         if (request('search')) {

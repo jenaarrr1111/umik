@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\AlamatUmkm;
 use App\Models\DataProduk;
+use App\Models\Pesanan;
 use App\Models\Profile;
 use Illuminate\Database\Seeder;
 
@@ -34,6 +35,7 @@ class DatabaseSeeder extends Seeder
         Profile::factory(6)->create();
         AlamatUmkm::factory(4)->create();
         DataProduk::factory(20)->create();
+        Pesanan::factory(10)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

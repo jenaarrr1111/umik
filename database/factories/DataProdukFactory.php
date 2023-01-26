@@ -22,6 +22,7 @@ class DataProdukFactory extends Factory
             'user_id' => $this->faker->numberBetween(2, 5),
             'nama_produk' => $this->faker->words(mt_rand(1, 4), true),
             'kategori' => $this->faker->words(1, true),
+            'harga' => $this->faker->numberBetween(5000, 500000),
             // 'user_id' => $this->faker->unique()->numberBetween()
         ];
     }

@@ -51,6 +51,11 @@ class Profile extends Authenticatable
         return $this->hasOne(AlamatUmkm::class, 'user_id');
     }
 
+    public function pesanan()
+    {
+        return $this->hasMany(Pesanan::class, 'user_id');
+    }
+
     // Ambil semua data users ataupun umkm
     public function getData()
     {
