@@ -60,4 +60,5 @@ class AlamatUmkm extends Model
 
         return $users;
     }
+    
 }

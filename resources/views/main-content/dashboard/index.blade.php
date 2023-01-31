@@ -7,31 +7,33 @@
 <!-- Required chart.js -->
 <div class="shadow-lg rounded-lg overflow-hidden">
     <div class="py-3 px-5 bg-gray-50 font-bold">Januari
-      <canvas id="chartBar" height="35" style="display: block; box-sizing: border-box; width: 100px;"class="pl-24""></canvas></div>
+      <canvas id="chartBar" height="35" style="display: block; box-sizing: border-box; width: 100px;"class="pl-24 mr-28"></canvas></div>
     </div>
 
 <div class="shadow-lg rounded-lg overflow-hidden">
     <div class="py-3 px-5 bg-gray-50 font-bold">Februari
-      <canvas id="chartBar1" height="35" style="display: block; box-sizing: border-box; width: 100px;"class="pl-24""></canvas></div>
+      <canvas id="chartBar1" height="35" style="display: block; box-sizing: border-box; width: 100px;"class="pl-24 mr-28"></canvas></div>
 </div>
 
 <!-- Chart bar -->
 <script>
   const labelsBarChart = [
-    "Umkm 1",
-    "Umkm 2",
-    "Umkm 3",
-    "Umkm 4",
-    "Umkm 5",
-    "Umkm 6",
+    "umkm 1",
+    "umkm 2",
+    "umkm 3",
+    "umkm 4",
+    "umkm 5",
+    "umkm 6",
+    "umkm 7"
   ];
   const labelsBarChart1 = [
-    "Umkm 1",
-    "Umkm 2",
-    "Umkm 3",
-    "Umkm 4",
-    "Umkm 5",
-    "Umkm 6",
+    "umkm 1",
+    "umkm 2",
+    "umkm 3",
+    "umkm 4",
+    "umkm 5",
+    "umkm 6",
+    "umkm 7"
   ];
   const dataBarChart = {
     labels: labelsBarChart,
