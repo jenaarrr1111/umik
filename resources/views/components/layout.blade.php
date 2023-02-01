@@ -13,7 +13,7 @@
     <title>UMIK</title>
 </head>
 
-<body class="min-h-full md:grid grid-cols-[1fr_80%]">
+<body class="min-h-full md:grid grid-cols-[1fr_80%] bg-gray-300">
 
     <div class="col-start-1 fixed w-full md:w-[20%] md:h-full top-0 z-10">
         <div class="logo-container py-2 md:py-4 border-r border-gray-600 bg-white">
