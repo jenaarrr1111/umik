@@ -63,7 +63,7 @@ Route::get('/umkm', [DataUMKMController::class, 'getData']);
 Route::get('/umkm/{id}', [DataProdukController::class, 'getData'])->whereNumber('id');
 
 /* =============== */
-Route::get('/laporan', [ProfileController::class, 'showLaporan']);
+/* Route::get('/laporan', [ProfileController::class, 'showLaporan']); */
 
 Route::get('login', [SignInController::class, 'index']);
 Route::post('login/sesi', [SignInController::class, 'login']);

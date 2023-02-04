@@ -1,7 +1,7 @@
 <style>
-    .dropdown:hover .dropdown-menu {
-        display: block;
-    }
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
 </style>
 <div class="dropdown inline-block relative">
     <button class="my-auto hover:bg-slate-300 p-1 rounded-sm">
