@@ -23,6 +23,7 @@
             </a>
         </div>
 
+        {{-- {{ Request::is('/') ? 'huauuoauau' : 'hehhhee'}} --}}
         <x-sidebar />
     </div>
 

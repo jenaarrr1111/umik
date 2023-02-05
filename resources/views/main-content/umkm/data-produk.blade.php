@@ -6,12 +6,12 @@
     @include('partials.search', ['path' => '/umkm/' . $id])
 
     @if (count($produk) == 0)
-    <div class="p-5 shadow-xl min-h-[50%] overflow-auto">
+    <div class="p-5 rounded-md shadow-lg bg-slate-50 min-h-[50%] overflow-auto">
         <p>Tidak ada produk</p>
     </div>
     @else
 
-    <div class="p-5 shadow-lg bg-slate-50 min-h-[50%] overflow-auto mb-5">
+    <div class="p-5 rounded-md shadow-lg bg-slate-50 min-h-[50%] overflow-auto mb-5">
         <x-tables.data-produk :data="$produk" />
     </div>
     @endif

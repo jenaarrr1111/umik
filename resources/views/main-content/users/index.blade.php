@@ -6,7 +6,7 @@
     @include('partials.search', ['path' => '/users'])
 
     @if (count($users) == 0)
-        <div class="p-5 shadow-xl min-h-[50%] overflow-auto">
+        <div class="p-5 rounded-md shadow-lg bg-slate-50 min-h-[50%] overflow-auto">
             <p>Tidak ada user</p>
         </div>
     @else
