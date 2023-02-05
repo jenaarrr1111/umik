@@ -11,7 +11,7 @@
     @vite('resources/css/app.css')
     <section class="bg-gray-50">
         <div class="flex flex-col bg-[#D9D9D9] items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <img src="{{url('umik.png')}}" class="w-32 mb-4">
+            <img src="{{url('umik.png')}}" alt="UMIK Logo" class="w-32 mb-4">
             <div class="w-full bg-white rounded-lg drop-shadow-2xl md:mt-0 sm:max-w-md xl:p-0">
                 <div class="flex">
                     <div class="mx-auto p-1  md:space-y-6 sm:p-8">
