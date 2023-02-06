@@ -19,7 +19,7 @@
     <div class="col-start-1 fixed w-full md:w-[20%] md:h-full top-0 z-10">
         <div class="logo-container py-2 md:py-4 border-gray-600 bg-white">
             <a href="/" class="h-full md:w-11/12 mx-auto flex align-middle">
-                <img class="w-32 mr-2" src="{{url('umik.png')}}">
+                <img class="w-32 ml-2" src="{{url('umik.png')}}">
             </a>
         </div>
 

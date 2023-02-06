@@ -1,6 +1,7 @@
 <x-layout>
+
     <header>
-        <h1 class="text-3xl font-bold my-5">{{ $title }}</h1>
+        <h1 class="text-3xl font-bold my-5">{{ $title }}@include('partials.notification', ['path' => '/umkm']) </h1>
     </header>
 
     @include('partials.search', ['path' => '/umkm/' . $id])
