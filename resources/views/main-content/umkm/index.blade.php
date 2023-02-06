@@ -10,7 +10,7 @@
 
 
     @if (count($umkm) == 0)
-    <div class="p-5 shadow-xl min-h-[50%] overflow-auto">
+    <div class="p-5 rounded-md shadow-lg bg-slate-50 min-h-[50%] overflow-auto">
         <p>Tidak ada umkm</p>
     </div>
     @else
