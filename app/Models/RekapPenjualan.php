@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Struk extends Model
+class RekapPenjualan extends Model
 {
     use HasFactory;
-    protected $table = 'struk';
+    protected $table = 'rekap_penjualan';
 
     /**
      * filllable
@@ -17,14 +17,11 @@ class Struk extends Model
      */
     protected $fillable = [
         'pesanan_id',
-        'nmr_pelanggan',
-        'nama_pelanggan',
-        'waktu',
         'nama_umkm',
-        'nama_pesanan',
-        'pajak',
-        'ongkir',
-        'ttl_tagihan'
+        'ttl_pendapatan',
+        'jmlh_transaksi',
+        'nama_product',
+        'jmlh_terjual',
     ];
 
 }
