@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AlamatUmkm;
+use App\Models\DataUmkm;
 use Illuminate\Http\Request;
 
 class DataUMKMController extends Controller
@@ -11,7 +11,7 @@ class DataUMKMController extends Controller
 
     public function __construct()
     {
-        $this->umkm = new AlamatUmkm();
+        $this->umkm = new DataUmkm();
     }
 
     /* public function index()
@@ -27,6 +27,15 @@ class DataUMKMController extends Controller
         return view('main-content.umkm.index', [
             'title' => 'UMKM',
             'umkm' => $this->umkm->getData(),
+        ]);
+    }
+
+    public function getPengajuan()
+    {
+        // dd($this->umkm->getData('penjual'));
+        return view('main-content.umkm.pengajuan', [
+            'title' => 'Pengajuan UMKM',
+            'umkm' => $this->umkm->getUnverified(),
         ]);
     }
 }

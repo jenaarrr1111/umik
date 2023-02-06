@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('alamat_umkms', function (Blueprint $table) {
+        Schema::create('data_umkm', function (Blueprint $table) {
             $table->id();
 
             // $table->foreignId('user_id')->constrained('profile');
@@ -37,6 +37,7 @@ return new class extends Migration
             $table->string('kode_pos');
             $table->string('nama_jln');
             $table->longText('detail');
+            $table->enum('status_verifikasi', ['terverifikasi', 'belum_terverifikasi']);
 
             $table->timestamps();
         });
@@ -49,6 +50,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alamat_umkms');
+        Schema::dropIfExists('data_umkm');
     }
 };

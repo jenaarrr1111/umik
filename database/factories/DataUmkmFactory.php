@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AlamatUmkm>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\DataUmkm>
  */
-class AlamatUmkmFactory extends Factory
+class DataUmkmFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -39,6 +39,7 @@ class AlamatUmkmFactory extends Factory
             'kode_pos' => $this->faker->postcode(),
             'nama_jln' => $this->faker->streetAddress(),
             'detail' => $this->faker->paragraph(2),
+            'status_verifikasi' => 'belum_terverifikasi',
         ];
     }
 }

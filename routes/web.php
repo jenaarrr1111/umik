@@ -62,6 +62,9 @@ Route::get('/umkm', [DataUMKMController::class, 'getData']);
 // Menampilkan data produk umkm yg memiliki id = {id}
 Route::get('/umkm/{id}', [DataProdukController::class, 'getData'])->whereNumber('id');
 
+// Menampilkan halaman pengajuan umkm
+Route::get('/umkm/pengajuan', [DataUMKMController::class, 'getPengajuan']);
+
 /* =============== */
 /* Route::get('/laporan', [ProfileController::class, 'showLaporan']); */
 

@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class AlamatUmkm extends Model
+class DataUmkm extends Model
 {
     use HasFactory;
 
-    protected $table = 'alamat_umkms';
+    protected $table = 'data_umkm';
 
     protected $fillable = [
         'user_id',
@@ -28,6 +28,7 @@ class AlamatUmkm extends Model
         'kode_pos',
         'nama_jln',
         'detail',
+        'status_verifikasi',
     ];
 
 
@@ -47,18 +48,30 @@ class AlamatUmkm extends Model
     public function getData()
     {
         if (request('search')) {
-            $users = DB::table($this->table)
+            $umkm = DB::table($this->table)
                 ->latest()
                 ->where('nama_umkm', 'like', '%' . request('search') . '%')
+                ->where('status_verifikasi', '=', 'terverifikasi')
                 ->get();
         } else {
-            $users = DB::table($this->table)
+            $umkm = DB::table($this->table)
+                ->where('status_verifikasi', '=', 'terverifikasi')
                 ->latest()
                 ->get();
         }
-        // dd($users);
+        // dd($umkm);
 
-        return $users;
+        return $umkm;
     }
     
+    // Ambil data umkm yang belum terverifikasi
+    public function getUnverified() {
+        $umkm = DB::table($this->table)
+            ->select('user_id', 'nama_umkm', 'nama_jln', 'email_umkm', 'no_tlp')
+            ->where( 'status_verifikasi', '=', 'belum_terverifikasi')
+            ->latest()
+            ->get();
+
+        return $umkm;
+    }
 }
