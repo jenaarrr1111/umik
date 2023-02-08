@@ -4,8 +4,7 @@
         <header>
             <h1 class="text-3xl font-bold my-5">{{ $title }}</h1>
         </header>
-        @include('partials.notification', ['path' => '/umkm'])
-    </div>
+        </div>
 
     <div class="max-w-xs ml-auto">
         @include('partials.search', ['path' => '/users'])

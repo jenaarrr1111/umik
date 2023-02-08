@@ -27,15 +27,20 @@ class DataUMKMController extends Controller
         return view('main-content.umkm.index', [
             'title' => 'UMKM',
             'umkm' => $this->umkm->getData(),
+            'Total' => $this->umkm->getTotalUnverified(),
         ]);
     }
-
     public function getPengajuan()
     {
         // dd($this->umkm->getData('penjual'));
         return view('main-content.umkm.pengajuan', [
             'title' => 'Pengajuan UMKM',
             'umkm' => $this->umkm->getUnverified(),
+        ]);
+    }
+    public function getNotif()
+    {
+        return view('partials.notification', [
         ]);
     }
 }

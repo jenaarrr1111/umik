@@ -33,4 +33,3 @@
     @endforeach
 
 </x-tables.style>
-

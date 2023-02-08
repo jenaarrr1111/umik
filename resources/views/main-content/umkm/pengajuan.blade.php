@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout-notif>
 
     <div class="flex items-center">
         <a href="{{ url()->previous() }}">
@@ -25,5 +25,4 @@
         </div>
     @endif
 
-</x-layout>
-
+</x-layout-notif>

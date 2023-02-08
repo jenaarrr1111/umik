@@ -1,4 +1,4 @@
-<table class="w-full">
+        <table class="w-full">
     <thead class="bg-[rgba(9,47,105,0.28)] font-bold">
         {{ $headers }}
     </thead>

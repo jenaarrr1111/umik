@@ -74,4 +74,11 @@ class DataUmkm extends Model
 
         return $umkm;
     }
+    public function getTotalUnverified() {
+        $umkm = DB::table($this->table)
+            ->where( 'status_verifikasi', '=', 'belum_terverifikasi')
+            ->count();
+
+        return $umkm;
+    }
 }

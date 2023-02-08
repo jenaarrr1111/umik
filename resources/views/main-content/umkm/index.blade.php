@@ -4,7 +4,7 @@
         <header>
             <h1 class="text-3xl font-bold my-5">{{ $title }}</h1>
         </header>
-        @include('partials.notification', ['path' => '/umkm'])
+        @include('partials.notification', ['Total' =>$Total])
     </div>
 
     <div class="max-w-xs ml-auto">

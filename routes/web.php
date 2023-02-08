@@ -63,7 +63,8 @@ Route::get('/umkm', [DataUMKMController::class, 'getData']);
 Route::get('/umkm/{id}', [DataProdukController::class, 'getData'])->whereNumber('id');
 
 // Menampilkan halaman pengajuan umkm
-Route::get('/umkm/pengajuan', [DataUMKMController::class, 'getPengajuan']);
+Route::get('/umkm/pengajuan', [DataUMKMController::class, 'getPengajuan', DataUMKMController::class, 'getNotif']);
+
 
 /* =============== */
 /* Route::get('/laporan', [ProfileController::class, 'showLaporan']); */
