@@ -39,7 +39,6 @@ class DataUmkmFactory extends Factory
             'kode_pos' => $this->faker->postcode(),
             'nama_jln' => $this->faker->streetAddress(),
             'detail' => $this->faker->paragraph(2),
-            'status_verifikasi' => 'belum_terverifikasi',
         ];
     }
 }

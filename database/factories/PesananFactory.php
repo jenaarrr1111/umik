@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\DataProduk;
 use App\Models\Profile;
+use App\Models\Promo;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,13 +19,29 @@ class PesananFactory extends Factory
      */
     public function definition()
     {
+        $rand_produk_id = DataProduk::inRandomOrder()->value('id');
+        $promo_id = Promo::query()->where('produk_id', '=', $rand_produk_id)
+            ->value('id');
+        // $harga = DataProduk::query()->where('id', '=', $rand_produk_id)
+        //     ->value('harga');
+
         return [
             'user_id' => Profile::inRandomOrder()->value('id'),
-            'produk_id' => DataProduk::inRandomOrder()->value('id'),
+            'produk_id' => $rand_produk_id,
+            'promo_id' => $promo_id,
+
             'alamat_pelanggan' => $this->faker->address(),
-            'jmlh_pesanan' => $this->faker->randomNumber(2),
+            // 'harga' => $harga, // Kolom harga perlu ga??
+            // 'harga' => 10000,
+            'jmlh_pesanan' => $this->faker->numberBetween(1, 3),
+            'pajak' => $this->faker->numberBetween(5000, 10000),
+            // 'pajak' => 2000,
+            'ongkir' => $this->faker->numberBetween(5000, 10000),
+            // 'ongkir' => 4000,
+
             'catatan' => $this->faker->sentence(),
-            'harga' => $this->faker->numberBetween(5000, 500000),
+            'waktu_psn' => $this->faker->dateTime(),
+            'rating' => $this->faker->numberBetween(0, 5),
         ];
     }
 }

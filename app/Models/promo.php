@@ -16,12 +16,14 @@ class Promo extends Model
      * @var array
      */
     protected $fillable = [
-        'pesanan_id',
-        'nama_produk',
+        'produk_id',
         'harga_akhir',
-        'waktu_prm',
-        'ttl_tagihan'
+        'potongan_harga',
+        'waktu_promo',
     ];
 
+    public function dataProduk()
+    {
+        return $this->belongsTo(DataProduk::class, 'produk_id');
+    }
 }
-

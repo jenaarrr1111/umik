@@ -20,7 +20,4 @@ class Rating extends Model
         'nama_pelanggan',
         'penilaian'
     ];
-
 }
-
-
