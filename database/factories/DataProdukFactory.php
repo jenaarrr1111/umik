@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\DataUmkm;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,9 +17,14 @@ class DataProdukFactory extends Factory
      */
     public function definition()
     {
+        // cuma user dgn id 2 sampai 5 yg punya toko (utk database seeder)
+        $randUserId = $this->faker->numberBetween(2, 5);
+        $umkmId = DataUmkm::query()->where('user_id', '=', $randUserId)
+            ->value('id');
+
         return [
-            // cuma user dgn id 2 sampai 5 yg punya toko (utk database seeder)
-            'user_id' => $this->faker->numberBetween(2, 5),
+            'umkm_id' => $umkmId,
+
             'nama_produk' => $this->faker->words(mt_rand(1, 4), true),
             'kategori' => $this->faker->randomElement(
                 [

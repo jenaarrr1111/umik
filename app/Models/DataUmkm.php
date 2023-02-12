@@ -63,22 +63,86 @@ class DataUmkm extends Model
 
         return $umkm;
     }
-    
+
     // Ambil data umkm yang belum terverifikasi
-    public function getUnverified() {
+    public function getUnverified()
+    {
         $umkm = DB::table($this->table)
             ->select('user_id', 'nama_umkm', 'nama_jln', 'email_umkm', 'no_tlp')
-            ->where( 'status_verifikasi', '=', 'belum_terverifikasi')
+            ->where('status_verifikasi', '=', 'belum_terverifikasi')
             ->latest()
             ->get();
 
         return $umkm;
     }
-    public function getTotalUnverified() {
+
+    public function getTotalUnverified()
+    {
         $umkm = DB::table($this->table)
-            ->where( 'status_verifikasi', '=', 'belum_terverifikasi')
+            ->where('status_verifikasi', '=', 'belum_terverifikasi')
             ->count();
 
         return $umkm;
+    }
+
+    // [[ API Functions ]]
+    public function getProductsOnCategory(String $category)
+    {
+        /* perlu ambil
+            - data umkm yg punya kategori tertentu
+            - kategori lain yg dimiliki umkm-umkm tsb?
+            - fuck!
+         */
+
+        /* SELECT `umkm_id`, GROUP_CONCAT(DISTINCT `kategori` SEPARATOR ', ') FROM `data_produk` GROUP BY `umkm_id`; */
+        /* SELECT `umkm_id`, GROUP_CONCAT(DISTINCT `kategori` SEPARATOR ', ') FROM `data_produk`  WHERE `kategori` = 'Roti' GROUP BY `umkm_id`; */
+
+        /*
+            SELECT
+                GROUP_CONCAT(DISTINCT p.kategori SEPARATOR ',') AS `kategori_concat`
+            FROM `data_produk` AS p
+            JOIN (
+                SELECT `nama_umkm`, `id`
+                FROM `data_umkm`
+            ) AS u ON p.umkm_id = u.id
+            GROUP BY
+                `umkm_id`;
+         */
+
+        /*
+            SELECT
+                u.`nama_umkm`,
+                u.`id`,
+                GROUP_CONCAT(
+                    DISTINCT p.kategori SEPARATOR ','
+                ) AS `kategori_concat`
+            FROM
+                `data_umkm` AS u
+            JOIN(
+            SELECT * FROM
+                `data_produk`
+            ) AS p
+            ON
+                u.id = p.umkm_id
+            GROUP BY
+                p.umkm_id
+            HAVING
+                FIND_IN_SET('Roti', kategori_concat);
+         */
+
+        // Ambil semua umkm lalu concat semua kategori yg dimiliki umkm tsb
+        // Filter dari hasil kategori_concat, umkm mana yg punya kategori yg dicari
+        $umkm = DB::table('data_umkm AS u')
+            ->join('data_produk AS p', 'u.id', '=', 'p.umkm_id')
+            ->selectRaw(
+                'u.id AS id_umkm,
+                 u.nama_umkm,
+                 GROUP_CONCAT(DISTINCT p.kategori SEPARATOR ",") AS kategori_concat',
+            )
+            ->groupBy('p.umkm_id')
+            ->havingRaw('FIND_IN_SET(?, kategori_concat)', [$category])
+            ->get();
+
+        return response()->json(['umkm' => $umkm], 200);
     }
 }

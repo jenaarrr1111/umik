@@ -18,11 +18,9 @@ return new class extends Migration
 
             /*
              * Menambahkan foreign key
-             * Foreign key nya diambil dari kolom `user_id` di tabel data_umkm
+             * Foreign key nya diambil dari kolom `id` di tabel data_umkm
              */
-            $table->foreignId('user_id') // nama kolom
-                ->constrained('data_umkm', 'user_id') // nama table dan kolom yg jadi ref
-                ->onDelete('cascade');
+            $table->foreignId('umkm_id')->constrained('data_umkm');
             $table->string('nama_produk');
             $table->string('kategori');
             $table->decimal('harga');

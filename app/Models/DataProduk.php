@@ -13,15 +13,21 @@ class DataProduk extends Model
     protected $table = 'data_produk';
 
     protected $fillable = [
-        'user_id',
+        'umkm_id',
         'nama_produk',
         'kotegori',
     ];
 
-    // Relasi tabel `data_produk` dgn tabel `alamat_umkms`
-    public function umkm()
+    // Relasi tabel `data_produk` dgn tabel `data_umkms`
+    public function profile()
     {
-        return $this->belongsTo(DataUmkm::class, 'user_id');
+        return $this->belongsTo(Profile::class, 'user_id');
+    }
+
+    // Relasi tabel `data_produk` dgn tabel `data_umkms`
+    public function dataUmkm()
+    {
+        return $this->belongsTo(DataUmkm::class, 'umkm_id');
     }
 
     // Relasi tabel `data_produk` dgn tabel `pesanan`
@@ -50,5 +56,10 @@ class DataProduk extends Model
         }
 
         return $produk;
+    }
+
+    public function getAllCategories()
+    {
+        return DB::table($this->table)->distinct()->pluck('kategori');
     }
 }

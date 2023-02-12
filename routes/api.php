@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ApiControllers\DataProdukController;
+use App\Http\Controllers\ApiControllers\DataUMKMController;
 use App\Http\Controllers\ApiControllers\DataUserController;
 use App\Http\Controllers\ApiControllers\ProfileController;
 use App\Http\Controllers\ApiControllers\SignInController;
@@ -21,6 +23,9 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 }); */
 
+/*
+ * [[ API USER ]]
+ */
 // Menampilkan semua user data
 Route::get('/users', [DataUserController::class, 'getData']);
 
@@ -38,3 +43,11 @@ Route::get('/users/{id}', [ProfileController::class, 'getData']);
 
 // Menghapus data user
 Route::delete('/users/{id}', [ProfileController::class, 'delete']);
+
+/*
+ * [[ API DATA PRODUK ]]
+ */
+Route::get('/categories', [DataProdukController::class, 'getAllCategories']);
+
+// Ambil semua UMKM yg punya produk yg sesuai kategori
+Route::get('categories/{kategori}', [DataUMKMController::class, 'getProductsOnCategory']);
