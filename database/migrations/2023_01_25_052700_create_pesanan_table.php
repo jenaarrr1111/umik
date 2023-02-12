@@ -70,35 +70,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        /*
-            trigger yg awal, klo masih pake kolom harga
-            BEGIN
-                SET @promo = 0;
-                SELECT `potongan_harga` INTO @promo FROM `promo` WHERE `produk_id` = NEW.produk_id;
-                IF @promo >= NEW.harga THEN
-                    SET NEW.harga = 0;
-                END IF;
-                SET NEW.total_tagihan = (NEW.harga - @promo) * NEW.jmlh_pesanan + NEW.pajak + NEW.ongkir;
-            END
-
-            trigger revisi
-            CREATE TRIGGER `hitung_total_tagihan` BEFORE INSERT ON `pesanan` FOR EACH ROW
-            BEGIN
-                SELECT `harga` INTO @harga FROM `data_produk` WHERE `id` = NEW.produk_id;
-                SET @promo = 0;
-                SELECT `potongan_harga` INTO @promo FROM `promo` WHERE `produk_id` = NEW.produk_id;
-
-                IF @promo > @harga THEN
-                        SET @harga_stlh_promo = 0;
-                ELSE
-                        SET @harga_stlh_promo = @harga - @promo;
-                END IF;
-
-
-                SET NEW.total_tagihan = @harga_stlh_promo * NEW.jmlh_pesanan + NEW.pajak + NEW.ongkir;
-            END
-         */
-
         DB::unprepared('
             CREATE TRIGGER `hitung_total_tagihan` BEFORE INSERT ON `pesanan` FOR EACH ROW
             BEGIN

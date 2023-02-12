@@ -88,48 +88,6 @@ class DataUmkm extends Model
     // [[ API Functions ]]
     public function getProductsOnCategory(String $category)
     {
-        /* perlu ambil
-            - data umkm yg punya kategori tertentu
-            - kategori lain yg dimiliki umkm-umkm tsb?
-            - fuck!
-         */
-
-        /* SELECT `umkm_id`, GROUP_CONCAT(DISTINCT `kategori` SEPARATOR ', ') FROM `data_produk` GROUP BY `umkm_id`; */
-        /* SELECT `umkm_id`, GROUP_CONCAT(DISTINCT `kategori` SEPARATOR ', ') FROM `data_produk`  WHERE `kategori` = 'Roti' GROUP BY `umkm_id`; */
-
-        /*
-            SELECT
-                GROUP_CONCAT(DISTINCT p.kategori SEPARATOR ',') AS `kategori_concat`
-            FROM `data_produk` AS p
-            JOIN (
-                SELECT `nama_umkm`, `id`
-                FROM `data_umkm`
-            ) AS u ON p.umkm_id = u.id
-            GROUP BY
-                `umkm_id`;
-         */
-
-        /*
-            SELECT
-                u.`nama_umkm`,
-                u.`id`,
-                GROUP_CONCAT(
-                    DISTINCT p.kategori SEPARATOR ','
-                ) AS `kategori_concat`
-            FROM
-                `data_umkm` AS u
-            JOIN(
-            SELECT * FROM
-                `data_produk`
-            ) AS p
-            ON
-                u.id = p.umkm_id
-            GROUP BY
-                p.umkm_id
-            HAVING
-                FIND_IN_SET('Roti', kategori_concat);
-         */
-
         // Ambil semua umkm lalu concat semua kategori yg dimiliki umkm tsb
         // Filter dari hasil kategori_concat, umkm mana yg punya kategori yg dicari
         $umkm = DB::table('data_umkm AS u')
@@ -142,6 +100,12 @@ class DataUmkm extends Model
             ->groupBy('p.umkm_id')
             ->havingRaw('FIND_IN_SET(?, kategori_concat)', [$category])
             ->get();
+
+        // dd(count($umkm->toArray()), $umkm);
+
+        if (count($umkm->toArray()) == 0) {
+            return response()->json(['umkm' => 'Tidak ada umkm yang sesuai dengan kategori yang dicari'], 404);
+        }
 
         return response()->json(['umkm' => $umkm], 200);
     }
