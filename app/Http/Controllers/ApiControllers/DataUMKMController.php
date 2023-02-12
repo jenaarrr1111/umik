@@ -17,6 +17,12 @@ class DataUMKMController extends Controller
 
     public function getProductsOnCategory($category)
     {
-        return $this->umkm->getProductsOnCategory($category);
+        $umkm =  $this->umkm->getProductsOnCategory($category);
+
+        if (count($umkm->toArray()) == 0) {
+            return response()->json(['umkm' => 'Tidak ada umkm yang sesuai dengan kategori yang dicari'], 404);
+        }
+
+        return $umkm;
     }
 }

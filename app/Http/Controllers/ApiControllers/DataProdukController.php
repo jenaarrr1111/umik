@@ -19,4 +19,24 @@ class DataProdukController extends Controller
     {
         return $this->dataProduk->getAllCategories();
     }
+
+    public function getProductsOnUmkm($id)
+    {
+        $produk = DataProduk::query()
+            ->where('umkm_id', '=', $id)
+            ->latest()
+            ->get();
+
+        if (count($produk->toArray()) == 0) {
+            return response()->json([
+                'success' => 'false',
+                'message' => 'Toko tidak ditemukan.'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => 'true',
+            'message' => $produk
+        ], 200);
+    }
 }
