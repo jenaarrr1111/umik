@@ -15,11 +15,15 @@ return new class extends Migration
     {
         Schema::create('promo', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pesanan_id')->unique()->constrained('pesanan');
-            $table->string('nama_produk');
-            $table->integer('harga_akhir');
-            $table->integer('waktu_prm');
-            $table->integer('ttl_tagihan');
+
+            $table->foreignId('produk_id')->constrained('data_produk'); // Utk ambil nama produk
+            $table->integer('harga_akhir'); // Ini trus utk apa? :v
+            $table->integer('potongan_harga');
+            $table->dateTime('waktu_promo');
+            // Composite attribute
+            // $table->dateTime('promo_mulai');
+            // $table->dateTime('promo_selesai');
+
             $table->timestamps();
         });
     }

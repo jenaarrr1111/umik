@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('no_tlp');
             $table->string('email')->unique();
 
-            $table->enum('level_user', ['user', 'penjual', 'admin_keseluruhan']);
+            $table->enum('level_user', ['user', 'penjual', 'admin_keseluruhan'])
+                ->default('user');
 
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

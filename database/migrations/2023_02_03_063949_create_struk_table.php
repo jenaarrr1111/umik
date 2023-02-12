@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('struk', function (Blueprint $table) {
             $table->id();
+
             $table->foreignId('pesanan_id')->unique()->constrained('pesanan');
             $table->string('nmr_pelanggan');
             $table->integer('nama_pelanggan');
@@ -23,7 +24,8 @@ return new class extends Migration
             $table->integer('nama_pesanan');
             $table->integer('pajak');
             $table->integer('ongkir');
-            $table->integer('ttl_tagihan');
+            $table->integer('total_tagihan');
+
             $table->timestamps();
         });
     }

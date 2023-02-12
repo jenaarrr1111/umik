@@ -8,6 +8,7 @@ use App\Models\DataUmkm;
 use App\Models\DataProduk;
 use App\Models\Pesanan;
 use App\Models\Profile;
+use App\Models\Promo;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -35,7 +36,9 @@ class DatabaseSeeder extends Seeder
         Profile::factory(6)->create();
         DataUmkm::factory(4)->create();
         DataProduk::factory(20)->create();
-        Pesanan::factory(10)->create();
+        Promo::factory(3)->create();
+        Promo::factory(2)->create();
+        Pesanan::factory(20)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

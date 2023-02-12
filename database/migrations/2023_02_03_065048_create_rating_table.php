@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('rating', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pesanan_id')->unique()->constrained('pesanan');
-            $table->integer('nama_pelanggan');
+            // $table->foreignId('pesanan_id')->unique()->constrained('pesanan');
+            // $table->integer('nama_pelanggan');
             $table->integer('penilaian');
             $table->timestamps();
         });

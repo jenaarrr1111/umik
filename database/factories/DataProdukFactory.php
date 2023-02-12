@@ -17,11 +17,21 @@ class DataProdukFactory extends Factory
      */
     public function definition()
     {
+        // cuma user dgn id 2 sampai 5 yg punya toko (utk database seeder)
+        $randUserId = $this->faker->numberBetween(2, 5);
+        $umkmId = DataUmkm::query()->where('user_id', '=', $randUserId)
+            ->value('id');
+
         return [
-            // cuma user dgn id 2 sampai 5 yg punya toko (utk database seeder)
-            'user_id' => $this->faker->numberBetween(2, 5),
+            'umkm_id' => $umkmId,
+
             'nama_produk' => $this->faker->words(mt_rand(1, 4), true),
-            'kategori' => $this->faker->words(1, true),
+            'kategori' => $this->faker->randomElement(
+                [
+                    'Minuman', 'Kopi', 'Cepat Saji', 'Aneka Nasi',
+                    'Jajanan', 'Roti', 'Seafood', 'Bakmie',
+                ],
+            ),
             'harga' => $this->faker->numberBetween(5000, 500000),
             // 'user_id' => $this->faker->unique()->numberBetween()
         ];

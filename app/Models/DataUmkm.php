@@ -63,22 +63,50 @@ class DataUmkm extends Model
 
         return $umkm;
     }
-    
+
     // Ambil data umkm yang belum terverifikasi
-    public function getUnverified() {
+    public function getUnverified()
+    {
         $umkm = DB::table($this->table)
             ->select('user_id', 'nama_umkm', 'nama_jln', 'email_umkm', 'no_tlp')
-            ->where( 'status_verifikasi', '=', 'belum_terverifikasi')
+            ->where('status_verifikasi', '=', 'belum_terverifikasi')
             ->latest()
             ->get();
 
         return $umkm;
     }
-    public function getTotalUnverified() {
+
+    public function getTotalUnverified()
+    {
         $umkm = DB::table($this->table)
-            ->where( 'status_verifikasi', '=', 'belum_terverifikasi')
+            ->where('status_verifikasi', '=', 'belum_terverifikasi')
             ->count();
 
         return $umkm;
+    }
+
+    // [[ API Functions ]]
+    public function getProductsOnCategory(String $category)
+    {
+        // Ambil semua umkm lalu concat semua kategori yg dimiliki umkm tsb
+        // Filter dari hasil kategori_concat, umkm mana yg punya kategori yg dicari
+        $umkm = DB::table('data_umkm AS u')
+            ->join('data_produk AS p', 'u.id', '=', 'p.umkm_id')
+            ->selectRaw(
+                'u.id AS id_umkm,
+                 u.nama_umkm,
+                 GROUP_CONCAT(DISTINCT p.kategori SEPARATOR ",") AS kategori_concat',
+            )
+            ->groupBy('p.umkm_id')
+            ->havingRaw('FIND_IN_SET(?, kategori_concat)', [$category])
+            ->get();
+
+        // dd(count($umkm->toArray()), $umkm);
+
+        if (count($umkm->toArray()) == 0) {
+            return response()->json(['umkm' => 'Tidak ada umkm yang sesuai dengan kategori yang dicari'], 404);
+        }
+
+        return response()->json(['umkm' => $umkm], 200);
     }
 }
