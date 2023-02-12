@@ -20,7 +20,9 @@ class DataUMKMController extends Controller
         $umkm =  $this->umkm->getProductsOnCategory($category);
 
         if (count($umkm->toArray()) == 0) {
-            return response()->json(['umkm' => 'Tidak ada umkm yang sesuai dengan kategori yang dicari'], 404);
+            return response()->json([
+                'umkm' => 'Tidak ada umkm yang sesuai dengan kategori yang dicari'
+            ], 404);
         }
 
         return $umkm;
