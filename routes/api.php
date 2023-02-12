@@ -51,3 +51,6 @@ Route::get('/categories', [DataProdukController::class, 'getAllCategories']);
 
 // Ambil semua UMKM yg punya produk yg sesuai kategori
 Route::get('categories/{kategori}', [DataUMKMController::class, 'getProductsOnCategory']);
+
+// Ambil semua produk yg ada dalem UMKM tertentu
+Route::get('products/umkm/{id}', [DataProdukController::class, 'getProductsOnUmkm']);
