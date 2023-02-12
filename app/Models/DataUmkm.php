@@ -86,7 +86,7 @@ class DataUmkm extends Model
     }
 
     // [[ API Functions ]]
-    public function getProductsOnCategory($category)
+    public function getProductsOnCategory(String $category)
     {
         // Ambil semua umkm lalu concat semua kategori yg dimiliki umkm tsb
         // Filter dari hasil kategori_concat, umkm mana yg punya kategori yg dicari
@@ -104,9 +104,5 @@ class DataUmkm extends Model
         // dd(count($umkm->toArray()), $umkm);
 
         return $umkm;
-    }
-
-    public function getProductsOnUmkm($id)
-    {
     }
 }
