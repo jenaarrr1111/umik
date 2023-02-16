@@ -5,6 +5,7 @@ use App\Http\Controllers\ApiControllers\DataUMKMController;
 use App\Http\Controllers\ApiControllers\DataUserController;
 use App\Http\Controllers\ApiControllers\ProfileController;
 use App\Http\Controllers\ApiControllers\SignInController;
+use App\Http\Controllers\ApiControllers\SignInUmkmController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +44,21 @@ Route::get('/users/{id}', [ProfileController::class, 'getData']);
 
 // Menghapus data user
 Route::delete('/users/{id}', [ProfileController::class, 'delete']);
+
+/*
+ * [[ API UMKM ]]
+ */
+// Ambil UMKM tertentu
+Route::get('/umkm/{id}', [DataUMKMController::class, 'getUmkm']);
+
+// Registrasi UMKM
+Route::post('/register/umkm', [SignInUMKMController::class, 'setData']);
+
+// Update data UMKM
+Route::put('/umkm/{id}', [DataUMKMController::class, 'setData']);
+
+// Update data UMKM
+Route::delete('/umkm/{id}', [DataUMKMController::class, 'delete']);
 
 /*
  * [[ API DATA PRODUK ]]

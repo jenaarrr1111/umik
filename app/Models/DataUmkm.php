@@ -18,7 +18,8 @@ class DataUmkm extends Model
         'nama_lengkap',
         'nama_umkm',
         'email_umkm',
-        'plat',
+        'plat_1',
+        'plat_2',
         'estimasi_wkt_pekerjaan',
 
         'no_tlp',

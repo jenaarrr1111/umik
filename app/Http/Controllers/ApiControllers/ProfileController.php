@@ -16,7 +16,7 @@ class ProfileController extends Controller
         if ($user === null) {
             return response()->json([
                 'success' => 'false',
-                'message' => 'User not found.'
+                'message' => 'User tidak ditemukan.'
             ], 404);
         }
 
@@ -32,7 +32,7 @@ class ProfileController extends Controller
 
         return response()->json([
             'success' => 'true',
-            'message' => 'Berhasil update data',
+            'message' => 'Data berhasil disimpan.',
             'data' => $user
         ]);
     }
@@ -44,7 +44,7 @@ class ProfileController extends Controller
         if ($user === null) {
             return response()->json([
                 'success' => 'false',
-                'message' => 'User not found.'
+                'message' => 'User tidak ditemukan.'
             ], 404);
         }
 
@@ -57,7 +57,7 @@ class ProfileController extends Controller
         if ($user === null) {
             return response()->json([
                 'success' => 'false',
-                'message' => 'User not found.'
+                'message' => 'User tidak ditemukan.'
             ], 404);
         }
 

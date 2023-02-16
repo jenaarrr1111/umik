@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -22,12 +23,13 @@ return new class extends Migration
             // Diambil utk jadi 'pemilik' utk admin keseluruhan
             $table->string('nama_lengkap');
 
-            $table->string('nama_umkm')->nullable();
+            $table->string('nama_umkm');
             // $table->longText('alamat_umkm')->nullable();
-            $table->string('email_umkm')->nullable();
-            $table->string('plat')->nullable();
+            $table->string('email_umkm');
+            $table->string('plat_1');
+            $table->string('plat_2')->nullable();
 
-            $table->time('estimasi_wkt_pekerjaan')->nullable();
+            $table->time('estimasi_wkt_pekerjaan');
             // Diambil utk jadi 'notlp' utk admin keseluruhan
             $table->string('no_tlp');
 
@@ -36,12 +38,21 @@ return new class extends Migration
             $table->string('kecamatan');
             $table->string('kode_pos');
             $table->string('nama_jln');
-            $table->longText('detail');
+            $table->longText('detail')->nullable();
             $table->enum('status_verifikasi', ['terverifikasi', 'belum_terverifikasi'])
                 ->default('belum_terverifikasi');
 
             $table->timestamps();
         });
+
+        DB::unprepared('
+            CREATE TRIGGER `ubah_level_user` AFTER INSERT ON `data_umkm` FOR EACH ROW
+            BEGIN
+                UPDATE `profile`
+                SET level_user = "penjual"
+                WHERE `id` = NEW.user_id;
+            END
+        ');
     }
 
     /**
