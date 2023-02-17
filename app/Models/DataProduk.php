@@ -18,13 +18,13 @@ class DataProduk extends Model
         'kotegori',
     ];
 
-    // Relasi tabel `data_produk` dgn tabel `data_umkms`
+    // Relasi tabel `data_produk` dgn tabel `profile`
     public function profile()
     {
         return $this->belongsTo(Profile::class, 'user_id');
     }
 
-    // Relasi tabel `data_produk` dgn tabel `data_umkms`
+    // Relasi tabel `data_produk` dgn tabel `data_umkm`
     public function dataUmkm()
     {
         return $this->belongsTo(DataUmkm::class, 'umkm_id');

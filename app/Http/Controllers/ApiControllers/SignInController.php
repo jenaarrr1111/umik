@@ -27,6 +27,7 @@ class SignInController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors());
         } else {
+
             $password = DB::table('profile')
                 ->select('password')
                 ->where('email', '=', $request['email'])
@@ -37,7 +38,7 @@ class SignInController extends Controller
                 return response()->json([
                     'success' => 'true',
                     'message' => 'Login Berhasil',
-                ], 200);
+                ], 201);
             } else {
                 return response()->json([
                     'success' => 'false',
@@ -60,7 +61,7 @@ class SignInController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(), 403);
         } else {
             // Hash Password
             $request['password'] = Hash::make($request->password);

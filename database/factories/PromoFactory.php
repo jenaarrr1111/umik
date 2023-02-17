@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\DataProduk;
 use App\Models\Pesanan;
+use App\Models\Promo;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,6 +19,8 @@ class PromoFactory extends Factory
      */
     public function definition()
     {
+        // $produk_di_promo = Promo::pluck('produk_id')->all();
+        // $produk_id = DataProduk::whereNotIn('id', $produk_di_promo)->select('id')->first();
         return [
             'produk_id' => DataProduk::inRandomOrder()->value('id'),
             // 'harga_akhir' => Pesanan::where('harga')->get(),

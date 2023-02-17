@@ -24,7 +24,8 @@ class DataUmkmFactory extends Factory
 
             'nama_umkm' => $this->faker->unique()->company(),
             'email_umkm' => $this->faker->unique()->companyEmail(),
-            'plat' => $this->faker->randomNumber(5, true),
+            'plat_1' => $this->faker->randomNumber(5, true),
+            // 'plat_2' => $this->faker->randomNumber(5, true),
             'estimasi_wkt_pekerjaan' => $this->faker->randomElement([
                 '00:15:00',
                 '00:17:00',
