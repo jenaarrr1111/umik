@@ -26,6 +26,7 @@ class DataProdukFactory extends Factory
             'umkm_id' => $umkmId,
 
             'nama_produk' => $this->faker->words(mt_rand(1, 4), true),
+            'deskripsi' => $this->faker->sentence(),
             'kategori' => $this->faker->randomElement(
                 [
                     'Minuman', 'Kopi', 'Cepat Saji', 'Aneka Nasi',
@@ -33,6 +34,7 @@ class DataProdukFactory extends Factory
                 ],
             ),
             'harga' => $this->faker->numberBetween(5000, 500000),
+            'stok' => $this->faker->numberBetween(1, 10),
             // 'user_id' => $this->faker->unique()->numberBetween()
         ];
     }

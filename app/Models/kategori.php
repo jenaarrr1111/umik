@@ -19,6 +19,4 @@ class Kategori extends Model
         'data_produk_id',
         'nama_kategori',
     ];
-
 }
-

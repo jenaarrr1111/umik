@@ -14,7 +14,7 @@ class DataProdukController extends Controller
         $this->produk_umkm = new DataProduk();
     }
 
-    public function getData(Request $request, $id)
+    public function getData($id)
     {
         // return $this->produk_umkm->getData($id);
         return view('main-content.umkm.data-produk', [

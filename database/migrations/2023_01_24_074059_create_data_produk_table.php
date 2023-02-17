@@ -20,10 +20,13 @@ return new class extends Migration
              * Menambahkan foreign key
              * Foreign key nya diambil dari kolom `id` di tabel data_umkm
              */
-            $table->foreignId('umkm_id')->constrained('data_umkm');
+            $table->foreignId('umkm_id')->constrained('data_umkm')
+                ->onDelete('cascade');
             $table->string('nama_produk');
+            $table->longText('deskripsi')->nullable();
             $table->string('kategori');
             $table->decimal('harga');
+            $table->integer('stok');
 
             $table->timestamps();
         });

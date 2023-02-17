@@ -18,7 +18,8 @@ return new class extends Migration
             $table->id();
 
             // $table->foreignId('user_id')->constrained('profile');
-            $table->foreignId('user_id')->unique()->constrained('profile');
+            $table->foreignId('user_id')->unique()->constrained('profile')
+                ->onDelete('cascade');
 
             // Diambil utk jadi 'pemilik' utk admin keseluruhan
             $table->string('nama_lengkap');
@@ -39,7 +40,9 @@ return new class extends Migration
             $table->string('kode_pos');
             $table->string('nama_jln');
             $table->longText('detail')->nullable();
-            $table->enum('status_verifikasi', ['terverifikasi', 'belum_terverifikasi'])
+            $table->enum('status_verifikasi', [
+                'terverifikasi', 'belum_terverifikasi'
+            ])
                 ->default('belum_terverifikasi');
 
             $table->timestamps();

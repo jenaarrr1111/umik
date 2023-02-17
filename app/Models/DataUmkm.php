@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class DataUmkm extends Model
@@ -33,20 +36,26 @@ class DataUmkm extends Model
     ];
 
 
-    // Mendefinisikan relasi antara tabel `alamat_umkms` dan `users`
-    public function user()
+    /**
+     * Mendefinisikan relasi antara tabel `alamat_umkms` dan `users`
+     */
+    public function user(): BelongsTo
     {
         return $this->belongsTo(Profile::class, 'user_id');
     }
 
-    // Relasi antara tabel `alamat_umkms` dan `data_produk`
-    public function dataProduk()
+    /**
+     * Relasi antara tabel `alamat_umkms` dan `data_produk`
+     */
+    public function dataProduk(): HasMany
     {
         return $this->hasMany(DataProduk::class, 'user_id');
     }
 
-    // Ambil data umkm
-    public function getData()
+    /**
+     * Ambil data umkm
+     */
+    public function getData(): Collection
     {
         if (request('search')) {
             $umkm = DB::table($this->table)
@@ -65,8 +74,10 @@ class DataUmkm extends Model
         return $umkm;
     }
 
-    // Ambil data umkm yang belum terverifikasi
-    public function getUnverified()
+    /**
+     * Ambil data umkm yang belum terverifikasi
+     */
+    public function getUnverified(): Collection
     {
         $umkm = DB::table($this->table)
             ->select('user_id', 'nama_umkm', 'nama_jln', 'email_umkm', 'no_tlp')
@@ -77,7 +88,7 @@ class DataUmkm extends Model
         return $umkm;
     }
 
-    public function getTotalUnverified()
+    public function getTotalUnverified(): int
     {
         $umkm = DB::table($this->table)
             ->where('status_verifikasi', '=', 'belum_terverifikasi')
@@ -87,7 +98,7 @@ class DataUmkm extends Model
     }
 
     // [[ API Functions ]]
-    public function getProductsOnCategory(String $category)
+    public function getProductsOnCategory(String $category): Collection
     {
         // Ambil semua umkm lalu concat semua kategori yg dimiliki umkm tsb
         // Filter dari hasil kategori_concat, umkm mana yg punya kategori yg dicari
