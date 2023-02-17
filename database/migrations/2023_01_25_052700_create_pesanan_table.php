@@ -17,9 +17,9 @@ return new class extends Migration
         Schema::create('pesanan', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('user_id')->constrained('profile'); // Utk ambil no_tlp
-            $table->foreignId('produk_id')->constrained('data_produk'); // Utk ambil nama_produk, harga
-            $table->foreignId('promo_id')->nullable()->constrained('promo'); // Utk ambil promo
+            $table->foreignId('user_id')->constrained('profile')->onDelete('cascade'); // Utk ambil no_tlp
+            $table->foreignId('produk_id')->constrained('data_produk')->onDelete('cascade'); // Utk ambil nama_produk, harga
+            $table->foreignId('promo_id')->nullable()->constrained('promo')->onDelete('cascade'); // Utk ambil promo
 
             $table->string('alamat_pelanggan');
 

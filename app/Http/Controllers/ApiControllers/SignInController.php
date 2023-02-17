@@ -4,20 +4,19 @@ namespace App\Http\Controllers\ApiControllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profile;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class SignInController extends Controller
 {
-    public function getData()
-    {
-        return DB::table('profile')->latest()->get();
-    }
-
-    // Login User
-    public function validasi(Request $request)
+    /**
+     * Validasi login user
+     */
+    public function validasi(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
@@ -25,31 +24,35 @@ class SignInController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors());
-        } else {
-
-            $password = DB::table('profile')
-                ->select('password')
-                ->where('email', '=', $request['email'])
-                ->first()
-                ->password;
-
-            if (Hash::check($request['password'], $password)) {
-                return response()->json([
-                    'success' => 'true',
-                    'message' => 'Login Berhasil',
-                ], 201);
-            } else {
-                return response()->json([
-                    'success' => 'false',
-                    'message' => 'Gagal login. Kredensial tidak sesuai'
-                ], 401);
-            }
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()
+            ], 409);
         }
+
+        $password = DB::table('profile')
+            ->select('password')
+            ->where('email', '=', $request['email'])
+            ->first()
+            ->password;
+
+        if (!Hash::check($request['password'], $password)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal login. Kredensial tidak sesuai'
+            ], 401);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Login Berhasil',
+        ], 200);
     }
 
-    // Registrasi User
-    public function setData(Request $request)
+    /**
+     * Registrasi user
+     */
+    public function setData(Request $request): JsonResponse
     {
         // Mungkin bisa pakai store, supaya ga ngetik berulang"? (udh 2x ngulang)
         $validator = Validator::make($request->all(), [
@@ -61,19 +64,23 @@ class SignInController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 403);
-        } else {
-            // Hash Password
-            $request['password'] = Hash::make($request->password);
-            $userInput = $request->all();
-
-            $user = Profile::create($userInput);
-            return response()
-                ->json([
-                    'success' => 'true',
-                    'message' => 'Berhasil registrasi.',
-                    'data' => $user
-                ], 201);
+            return response()->json([
+                'success' => false,
+                'messages' => $validator->errors(),
+            ], 403);
         }
+
+        // Hash Password
+        $request['password'] = Hash::make($request->password);
+        $userInput = $request->all();
+
+        $user = Profile::create($userInput);
+
+        return response()
+            ->json([
+                'success' => true,
+                'message' => 'Berhasil registrasi.',
+                'data' => $user
+            ], 201);
     }
 }

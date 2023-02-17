@@ -16,7 +16,9 @@ return new class extends Migration
         Schema::create('promo', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('produk_id')->unique()->constrained('data_produk'); // Utk ambil nama produk
+            $table->foreignId('produk_id')->unique()
+                ->constrained('data_produk')
+                ->onDelete('cascade'); // Utk ambil nama produk
             $table->integer('harga_akhir'); // Ini trus utk apa? :v
             $table->integer('potongan_harga');
             $table->dateTime('waktu_promo');

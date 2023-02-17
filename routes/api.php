@@ -5,7 +5,7 @@ use App\Http\Controllers\ApiControllers\DataUMKMController;
 use App\Http\Controllers\ApiControllers\DataUserController;
 use App\Http\Controllers\ApiControllers\ProfileController;
 use App\Http\Controllers\ApiControllers\SignInController;
-use App\Http\Controllers\ApiControllers\SignInUmkmController;
+use App\Http\Controllers\ApiControllers\SignInUMKMController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,9 +27,6 @@ use Illuminate\Support\Facades\Route;
 /*
  * [[ API USER ]]
  */
-// Menampilkan semua user data
-Route::get('/users', [DataUserController::class, 'getData']);
-
 // Register user
 Route::post('/register', [SignInController::class, 'setData']);
 
@@ -63,10 +60,17 @@ Route::delete('/umkm/{id}', [DataUMKMController::class, 'delete']);
 /*
  * [[ API DATA PRODUK ]]
  */
+Route::post('/product', [DataProdukController::class, 'createProduct']);
+
+Route::get('products/umkm/{id}', [DataProdukController::class, 'getProductsOnUmkm']);
+
+Route::put('product/{id}', [DataProdukController::class, 'updateProduct']);
+
+Route::delete('product/{id}', [DataProdukController::class, 'deleteProduct']);
+
+/*
+ * [[ API KATEGORI ]]
+ */
 Route::get('/categories', [DataProdukController::class, 'getAllCategories']);
 
-// Ambil semua UMKM yg punya produk yg sesuai kategori
 Route::get('categories/{kategori}', [DataUMKMController::class, 'getProductsOnCategory']);
-
-// Ambil semua produk yg ada dalem UMKM tertentu
-Route::get('products/umkm/{id}', [DataProdukController::class, 'getProductsOnUmkm']);

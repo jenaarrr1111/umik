@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DataProduk;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 
 class DataProdukController extends Controller
@@ -17,13 +18,9 @@ class DataProdukController extends Controller
         $this->dataProduk = new DataProduk;
     }
 
-    public function getAllCategories(): JsonResponse
+    public function getAllCategories(): Collection
     {
-        $categories = $this->dataProduk->getAllCategories();
-        return response()->json([
-            'success' => true,
-            'data' => $categories,
-        ], 200);
+        return $this->dataProduk->getAllCategories();
     }
 
     public function getProductsOnUmkm(int $id): JsonResponse
@@ -35,13 +32,13 @@ class DataProdukController extends Controller
 
         if (count($produk->toArray()) == 0) {
             return response()->json([
-                'success' => false,
+                'success' => 'false',
                 'message' => 'Toko tidak ditemukan.'
             ], 404);
         }
 
         return response()->json([
-            'success' => true,
+            'success' => 'true',
             'message' => $produk
         ], 200);
     }
@@ -51,15 +48,15 @@ class DataProdukController extends Controller
         $validator = Validator::make($request->all(), [
             'umkm_id' => 'required',
             'nama_produk' => 'required|max:255',
-            'deskripsi' => 'nullable|max:3000',
+            'deskripsi_produk' => 'required|max:3000',
             'kategori' => 'required',
             'harga' => 'required|max:100',
-            'stok' => 'required|integer|max:300',
+            'stok' => 'required|max:300',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'success' => false,
+                'success' => 'false',
                 'message' => $validator->errors(),
             ], 409);
         }
@@ -68,7 +65,7 @@ class DataProdukController extends Controller
         $produk = $this->dataProduk::create($userInput);
 
         return response()->json([
-            'success' => true,
+            'success' => 'true',
             'message' => 'Berhasil registrasi',
             'data' => $produk,
         ], 201);
@@ -80,72 +77,37 @@ class DataProdukController extends Controller
 
         if ($produk === null) {
             return response()->json([
-                'success' => false,
+                'success' => 'false',
                 'message' => 'Produk tidak ditemukan.'
             ], 404);
         }
 
         // Cek input user
         $validator = Validator::make($request->all(), [
-            'nama_produk' => 'required|max:255',
-            'deskripsi_produk' => 'nullable|max:3000',
-            'harga' => 'required|max:100',
-            'kategori' => 'required',
-            'stok' => 'required|max:300',
+            'nama_produk' => 'max:255',
+            'deskripsi_produk' => 'max:3000',
+            'harga' => 'max:100',
+            'stok' => 'max:300',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => $validator->errors(),
-            ], 409);
-        }
-
         if ($request->has('nama_produk')) {
-            $produk->nama_produk = $request->nama_produk;
+            $produk->nama_lengkap = $request->nama_lengkap;
         }
 
         if ($request->has('deskripsi_produk')) {
-            $produk->deskripsi = $request->deskripsi;
+            $produk->deskripsi_produk = $request->deskripsi_produk;
         }
 
         if ($request->has('kategori')) {
-            $produk->kategori = $request->kategori;
+            $produk->kategori = $request->deskripsi_produk;
         }
 
         if ($request->has('harga')) {
-            $produk->harga = $request->harga;
+            $produk->deskripsi_produk = $request->deskripsi_produk;
         }
 
         if ($request->has('stok')) {
-            $produk->stok = $request->stok;
+            $produk->stok = $request->deskripsi_produk;
         }
-
-        $produk->save();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Data berhasil disimpan.',
-            'data' => $produk,
-        ], 200);
-    }
-
-    public function deleteProduct(int $id): JsonResponse
-    {
-        $produk = $this->dataProduk::find($id);
-
-        if ($produk === null) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Produk tidak ditemukan.'
-            ], 404);
-        }
-
-        $produk->delete();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Produk berhasil dihapus.',
-        ], 200);
     }
 }
