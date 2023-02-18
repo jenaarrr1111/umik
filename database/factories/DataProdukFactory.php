@@ -33,8 +33,9 @@ class DataProdukFactory extends Factory
                     'Jajanan', 'Roti', 'Seafood', 'Bakmie',
                 ],
             ),
-            'harga' => $this->faker->numberBetween(5000, 500000),
-            'stok' => $this->faker->numberBetween(1, 10),
+            // 'harga' => $this->faker->numberBetween(5000, 500000),
+            'harga' => $this->faker->randomElement([10000, 20000, 50000]),
+            'stok' => $this->faker->numberBetween(10, 50),
             // 'user_id' => $this->faker->unique()->numberBetween()
         ];
     }

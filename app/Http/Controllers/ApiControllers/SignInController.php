@@ -14,10 +14,12 @@ use Illuminate\Support\Facades\Validator;
 class SignInController extends Controller
 {
     /**
-     * Validasi login user
+     * Validasi (login user)
      */
-    public function validasi(Request $request): JsonResponse
+    public function login(Request $request): JsonResponse
     {
+        $user = Profile::where('email', '=', $request->email)->first();
+
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|min:6',
@@ -43,10 +45,19 @@ class SignInController extends Controller
             ], 401);
         }
 
-        return response()->json([
+        $token = $user->createToken('token_utk_user')->plainTextToken;
+        $res = [
             'success' => true,
             'message' => 'Login Berhasil',
-        ], 200);
+            'token' => $token,
+        ];
+        return response()->json($res, 200);
+    }
+
+    public function logout(): JsonResponse
+    {
+        auth()->user()->tokens()->delete();
+        return response()->json(['message' => 'Logged out'], 200);
     }
 
     /**
@@ -75,12 +86,14 @@ class SignInController extends Controller
         $userInput = $request->all();
 
         $user = Profile::create($userInput);
+        $token = $user->createToken('token_utk_user')->plainTextToken;
+        $res = [
+            'success' => true,
+            'message' => 'Berhasil registrasi.',
+            'data' => $user,
+            'token' => $token,
+        ];
 
-        return response()
-            ->json([
-                'success' => true,
-                'message' => 'Berhasil registrasi.',
-                'data' => $user
-            ], 201);
+        return response()->json($res, 201);
     }
 }
