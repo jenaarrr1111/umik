@@ -59,11 +59,11 @@ class DataUMKMController extends Controller
         }
 
         if ($request->has('nama_lengkap')) {
-            $umkm->nama_lengkap = $request->nama_lengkap;
+            $umkm['nama_lengkap'] = $request['nama_lengkap'];
         }
 
         if ($request->has('no_tlp')) {
-            $umkm->no_tlp = $request->no_tlp;
+            $umkm['no_tlp'] = $request['no_tlp'];
         }
 
         $umkm->save();

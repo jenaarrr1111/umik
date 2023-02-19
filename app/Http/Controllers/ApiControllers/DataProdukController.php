@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ApiControllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\DataProduk;
+use App\Models\DataUmkm;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -28,6 +29,15 @@ class DataProdukController extends Controller
 
     public function getProductsOnUmkm(int $id): JsonResponse
     {
+        $umkm = DataUmkm::find($id);
+
+        if ($umkm == null) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Toko tidak ditemukan.'
+            ], 404);
+        }
+
         $produk = $this->dataProduk->query()
             ->where('umkm_id', '=', $id)
             ->latest()
@@ -36,13 +46,13 @@ class DataProdukController extends Controller
         if (count($produk->toArray()) == 0) {
             return response()->json([
                 'success' => false,
-                'message' => 'Toko tidak ditemukan.'
+                'message' => 'Tidak ada produk.'
             ], 404);
         }
 
         return response()->json([
             'success' => true,
-            'message' => $produk
+            'data' => $produk,
         ], 200);
     }
 
@@ -69,7 +79,7 @@ class DataProdukController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Berhasil registrasi',
+            'message' => 'Data berhasil disimpan.',
             'data' => $produk,
         ], 201);
     }
@@ -102,23 +112,23 @@ class DataProdukController extends Controller
         }
 
         if ($request->has('nama_produk')) {
-            $produk->nama_produk = $request->nama_produk;
+            $produk['nama_produk'] = $request['nama_produk'];
         }
 
-        if ($request->has('deskripsi_produk')) {
-            $produk->deskripsi = $request->deskripsi;
+        if ($request->has('deskripsi')) {
+            $produk['deskripsi'] = $request['deskripsi'];
         }
 
         if ($request->has('kategori')) {
-            $produk->kategori = $request->kategori;
+            $produk['kategori'] = $request['kategori'];
         }
 
         if ($request->has('harga')) {
-            $produk->harga = $request->harga;
+            $produk['harga'] = $request['harga'];
         }
 
         if ($request->has('stok')) {
-            $produk->stok = $request->stok;
+            $produk['stok'] = $request['stok'];
         }
 
         $produk->save();
@@ -134,10 +144,10 @@ class DataProdukController extends Controller
     {
         $produk = $this->dataProduk::find($id);
 
-        if ($produk === null) {
+        if ($produk == null) {
             return response()->json([
                 'success' => false,
-                'message' => 'Produk tidak ditemukan.'
+                'message' => 'Produk tidak ditemukan.',
             ], 404);
         }
 

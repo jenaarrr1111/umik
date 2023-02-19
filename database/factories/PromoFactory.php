@@ -23,10 +23,12 @@ class PromoFactory extends Factory
         // $produk_id = DataProduk::whereNotIn('id', $produk_di_promo)->select('id')->first();
         return [
             'produk_id' => DataProduk::inRandomOrder()->value('id'),
-            // 'harga_akhir' => Pesanan::where('harga')->get(),
-            'harga_akhir' => 10000, // Aku bingung, jadi tak buat gini dulu
             'potongan_harga' => 2000, // Aku bingung, jadi tak buat gini dulu
-            'waktu_promo' => $this->faker->dateTime(),
+            'promo_mulai' => date('Y-m-d h:i:s'),
+            'promo_selesai' => $this->faker->dateTimeBetween(
+                startDate: 'now',
+                endDate: '+10 minutes'
+            ),
         ];
     }
 }
