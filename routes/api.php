@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 // USERS / PROFILE
 Route::post('/register', [SignInController::class, 'setData']); // Register user
-Route::post('/login', [SignInController::class, 'login']);
+Route::post('/login', [SignInController::class, 'login'])->middleware('notAuthenticated');
 
 // KATEGORI
 Route::get('/categories', [DataProdukController::class, 'getAllCategories']);
@@ -42,12 +42,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     /* UMKM */
     Route::get('/umkm/{id}', [DataUMKMController::class, 'getUmkm']);
     Route::post('/register/umkm', [SignInUMKMController::class, 'setData']);
-    Route::put('/umkm/{id}', [DataUMKMController::class, 'setData']);
-    Route::delete('/umkm/{id}', [DataUMKMController::class, 'delete']);
+    Route::put('/umkm/{id}', [DataUMKMController::class, 'setData'])->middleware('role:penjual');
+    Route::delete('/umkm/{id}', [DataUMKMController::class, 'delete'])->middleware('role:penjual');
 
     /* DATA PRODUK */
-    Route::post('/product', [DataProdukController::class, 'createProduct']);
+    Route::post('/product', [DataProdukController::class, 'createProduct'])->middleware('role:penjual');
     Route::get('products/umkm/{id}', [DataProdukController::class, 'getProductsOnUmkm']);
-    Route::put('product/{id}', [DataProdukController::class, 'updateProduct']);
-    Route::delete('product/{id}', [DataProdukController::class, 'deleteProduct']);
+    Route::put('product/{id}', [DataProdukController::class, 'updateProduct'])->middleware('role:penjual');
+    Route::delete('product/{id}', [DataProdukController::class, 'deleteProduct'])->middleware('role:penjual');
 });

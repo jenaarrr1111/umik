@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ApiControllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\DataProduk;
+use App\Models\DataUmkm;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -28,6 +29,15 @@ class DataProdukController extends Controller
 
     public function getProductsOnUmkm(int $id): JsonResponse
     {
+        $umkm = DataUmkm::find($id);
+
+        if ($umkm === null) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Toko tidak ditemukan.'
+            ], 404);
+        }
+
         $produk = $this->dataProduk->query()
             ->where('umkm_id', '=', $id)
             ->latest()
@@ -36,7 +46,7 @@ class DataProdukController extends Controller
         if (count($produk->toArray()) == 0) {
             return response()->json([
                 'success' => false,
-                'message' => 'Toko tidak ditemukan.'
+                'message' => 'Tidak ada produk.'
             ], 404);
         }
 
