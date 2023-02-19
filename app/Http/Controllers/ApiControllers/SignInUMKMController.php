@@ -50,7 +50,7 @@ class SignInUMKMController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Berhasil registrasi',
+            'message' => 'Data berhasil disimpan.',
             'data' => [
                 'data_umkm' => $umkm,
                 'profile' => $user,

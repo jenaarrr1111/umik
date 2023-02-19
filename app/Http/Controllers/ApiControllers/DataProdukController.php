@@ -31,7 +31,7 @@ class DataProdukController extends Controller
     {
         $umkm = DataUmkm::find($id);
 
-        if ($umkm === null) {
+        if ($umkm == null) {
             return response()->json([
                 'success' => false,
                 'message' => 'Toko tidak ditemukan.'
@@ -52,7 +52,7 @@ class DataProdukController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => $produk
+            'data' => $produk,
         ], 200);
     }
 
@@ -79,7 +79,7 @@ class DataProdukController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Berhasil registrasi',
+            'message' => 'Data berhasil disimpan.',
             'data' => $produk,
         ], 201);
     }
@@ -112,23 +112,23 @@ class DataProdukController extends Controller
         }
 
         if ($request->has('nama_produk')) {
-            $produk->nama_produk = $request->nama_produk;
+            $produk['nama_produk'] = $request['nama_produk'];
         }
 
-        if ($request->has('deskripsi_produk')) {
-            $produk->deskripsi = $request->deskripsi;
+        if ($request->has('deskripsi')) {
+            $produk['deskripsi'] = $request['deskripsi'];
         }
 
         if ($request->has('kategori')) {
-            $produk->kategori = $request->kategori;
+            $produk['kategori'] = $request['kategori'];
         }
 
         if ($request->has('harga')) {
-            $produk->harga = $request->harga;
+            $produk['harga'] = $request['harga'];
         }
 
         if ($request->has('stok')) {
-            $produk->stok = $request->stok;
+            $produk['stok'] = $request['stok'];
         }
 
         $produk->save();
@@ -144,10 +144,10 @@ class DataProdukController extends Controller
     {
         $produk = $this->dataProduk::find($id);
 
-        if ($produk === null) {
+        if ($produk == null) {
             return response()->json([
                 'success' => false,
-                'message' => 'Produk tidak ditemukan.'
+                'message' => 'Produk tidak ditemukan.',
             ], 404);
         }
 

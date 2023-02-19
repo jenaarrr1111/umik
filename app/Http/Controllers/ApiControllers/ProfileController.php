@@ -37,11 +37,11 @@ class ProfileController extends Controller
         }
 
         if ($request->has('nama')) {
-            $user->nama = $request->nama;
+            $user['nama'] = $request['nama'];
         }
 
         if ($request->has('no_tlp')) {
-            $user->no_tlp = $request->no_tlp;
+            $user['no_tlp'] = $request['no_tlp'];
         }
 
         $user->save();
