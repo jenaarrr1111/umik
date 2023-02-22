@@ -80,7 +80,7 @@ class DataUmkm extends Model
     public function getUnverified(): Collection
     {
         $umkm = DB::table($this->table)
-            ->select('user_id', 'nama_umkm', 'nama_jln', 'email_umkm', 'no_tlp')
+            ->select('id', 'user_id', 'nama_umkm', 'nama_jln', 'email_umkm', 'no_tlp')
             ->where('status_verifikasi', '=', 'belum_terverifikasi')
             ->latest()
             ->get();
