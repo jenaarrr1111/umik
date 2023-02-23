@@ -10,6 +10,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
     @vite('resources/css/app.css')
     <section class="bg-gray-50">
+    <div role="alert">
+    @error('email')
+  <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+    Alert
+  </div>
+  <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+    <p><p>{{$message}}</P></p>
+  </div>
+</div>
+    
+                                    
+                                @enderror
         <div class="flex flex-col bg-[#D9D9D9] items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <img src="{{url('umik.png')}}" alt="UMIK Logo" class="w-32 mb-4">
             <div class="w-full bg-white rounded-lg drop-shadow-2xl md:mt-0 sm:max-w-md xl:p-0">
@@ -29,9 +41,7 @@
                                     </svg>
                                 </div>
                                 <input value="{{old ('email')}}"type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-100 dark:border-gray-600 dark:placeholder-gray-600 dark:focus:ring-blue-500" placeholder="Email" required="" autofocus>
-                                @error('email')
-                                    <p>{{$message}}</P>
-                                @enderror
+                                
                             </div>
                             <div class="flex relative mb-6">
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">

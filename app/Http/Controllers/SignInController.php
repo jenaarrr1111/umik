@@ -22,9 +22,10 @@ class SignInController extends Controller
         'password' => ['required'], ]);
  
         $email = Profile::where('email', '=', $request->email)->value('email');
+        $password = Profile::where('password', '=', $request->password)->value('password');
         // dd($request->email, $email);
     // if (auth()->attempt($credentials)) {
-        if ($request->email == $email) {
+        if ($request->email == $email && $request->password == $password) {
         $request->session()->regenerate();
 
         return redirect('/dashboard');
