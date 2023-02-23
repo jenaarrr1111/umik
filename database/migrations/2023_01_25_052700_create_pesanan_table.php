@@ -17,9 +17,9 @@ return new class extends Migration
         Schema::create('pesanan', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('user_id')->constrained('profile'); // Utk ambil no_tlp
-            $table->foreignId('produk_id')->constrained('data_produk'); // Utk ambil nama_produk, harga
-            $table->foreignId('promo_id')->nullable()->constrained('promo'); // Utk ambil promo
+            $table->foreignId('user_id')->constrained('profile')->onDelete('cascade'); // Utk ambil no_tlp
+            $table->foreignId('produk_id')->constrained('data_produk')->onDelete('cascade'); // Utk ambil nama_produk, harga
+            $table->foreignId('promo_id')->nullable()->constrained('promo')->onDelete('cascade'); // Utk ambil promo
 
             $table->string('alamat_pelanggan');
 
@@ -37,8 +37,8 @@ return new class extends Migration
              */
 
             // $table->decimal('harga', 10, 2); // Kolom harga perlu ga??
-            $table->integer('jmlh_pesanan');
-            $table->decimal('pajak', 10, 2);
+            $table->integer('jmlh_pesanan')->default(1);
+            $table->decimal('pajak', 10, 2)->default(0);
             $table->decimal('ongkir', 10, 2);
             $table->decimal('total_tagihan', 10, 2)->default(0);
             $table->longText('catatan')->nullable();
@@ -71,20 +71,47 @@ return new class extends Migration
         });
 
         DB::unprepared('
+            CREATE TRIGGER `kurangi_jmlh_stok` BEFORE INSERT ON `pesanan` FOR EACH ROW
+            BEGIN
+            SELECT `stok` INTO @stok FROM `data_produk` WHERE `id` = NEW.produk_id;
+
+            -- cek apakah stok nya kosong
+            IF @stok < NEW.jmlh_pesanan THEN
+                SET @message = CONCAT("ERROR: `jmlh_pesanan` dalam pesanan dengan id: ", NEW.id, " lebih besar dari kuantitas stok barang.");
+                SIGNAL SQLSTATE "45000"
+                SET MESSAGE_TEXT = @message;
+            ELSE
+                UPDATE `data_produk`
+                SET `stok` = `stok` - NEW.jmlh_pesanan
+                WHERE `id` = NEW.produk_id;
+            END IF;
+
+            END
+        ');
+
+        DB::unprepared('
             CREATE TRIGGER `hitung_total_tagihan` BEFORE INSERT ON `pesanan` FOR EACH ROW
             BEGIN
-                SELECT `harga` INTO @harga FROM `data_produk` WHERE `id` = NEW.produk_id;
-                SET @promo = 0;
-                SELECT `potongan_harga` INTO @promo FROM `promo` WHERE `produk_id` = NEW.produk_id;
-
-                IF @promo > @harga THEN
-                        SET @harga_stlh_promo = 0;
+                -- cek apakah stok nya kosong
+                IF @stok < NEW.jmlh_pesanan THEN
+                    SET @message = CONCAT("ERROR: `jmlh_pesanan` dalam pesanan dengan id: ", NEW.id, " lebih besar dari kuantitas stok barang.");
+                    SIGNAL SQLSTATE "45000"
+                    SET MESSAGE_TEXT = @message;
                 ELSE
-                        SET @harga_stlh_promo = @harga - @promo;
+                    SELECT `harga` INTO @harga FROM `data_produk` WHERE `id` = NEW.produk_id;
+                    SET @promo = 0;
+                    -- produk_id harus unik, klo gak hasil dari @promo bisa jadi lebih dari 1 baris
+                    SELECT `potongan_harga` INTO @promo FROM `promo` WHERE `produk_id` = NEW.produk_id;
+
+                    IF @promo > @harga THEN
+                            SET @harga_stlh_promo = 0;
+                    ELSE
+                            SET @harga_stlh_promo = @harga - @promo;
+                    END IF;
+
+                    SET NEW.pajak = @harga * NEW.jmlh_pesanan * 0.1;
+                    SET NEW.total_tagihan = @harga_stlh_promo * NEW.jmlh_pesanan + NEW.pajak + NEW.ongkir;
                 END IF;
-
-
-                SET NEW.total_tagihan = @harga_stlh_promo * NEW.jmlh_pesanan + NEW.pajak + NEW.ongkir;
             END
         ');
     }

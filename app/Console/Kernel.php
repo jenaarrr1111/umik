@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Models\Promo;
+use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -16,6 +18,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $query = Promo::where('promo_selesai', '<', Carbon::now()->format('Y-m-d h:i:s'));
+        $schedule->call(fn () => $query->delete())->everyTwoMinutes();
+        // Utk jalanin scheduler nya scr lokal, pake php artisan schedule:work
     }
 
     /**
@@ -25,7 +30,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

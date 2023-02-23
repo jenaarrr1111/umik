@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class DataProduk extends Model
@@ -15,34 +18,45 @@ class DataProduk extends Model
     protected $fillable = [
         'umkm_id',
         'nama_produk',
-        'kotegori',
+        'deskripsi',
+        'kategori',
+        'harga',
+        'stok',
     ];
 
-    // Relasi tabel `data_produk` dgn tabel `data_umkms`
-    public function profile()
+    /**
+     * Relasi tabel `data_produk` dgn tabel `profile`
+     */
+    public function profile(): BelongsTo
     {
         return $this->belongsTo(Profile::class, 'user_id');
     }
 
-    // Relasi tabel `data_produk` dgn tabel `data_umkms`
-    public function dataUmkm()
+    /**
+     * Relasi tabel `data_produk` dgn tabel `data_umkm`
+     */
+    public function dataUmkm(): BelongsTo
     {
         return $this->belongsTo(DataUmkm::class, 'umkm_id');
     }
 
-    // Relasi tabel `data_produk` dgn tabel `pesanan`
-    public function pesanan()
+    /**
+     * Relasi tabel `data_produk` dgn tabel `pesanan`
+     */
+    public function pesanan(): BelongsTo
     {
         return $this->belongsTo(Pesanan::class, 'produk_id');
     }
 
-    // Relasi tabel `data_produk` dgn tabel `pesanan`
-    public function promo()
+    /**
+     * Relasi tabel `data_produk` dgn tabel `promo`
+     */
+    public function promo(): HasOne
     {
         return $this->hasOne(Promo::class, 'produk_id');
     }
 
-    public function getData($id)
+    public function getData(int $id): Collection
     {
         if (request('search')) {
             $produk = DB::table($this->table)
@@ -58,7 +72,7 @@ class DataProduk extends Model
         return $produk;
     }
 
-    public function getAllCategories()
+    public function getAllCategories(): Collection
     {
         return DB::table($this->table)->distinct()->pluck('kategori');
     }

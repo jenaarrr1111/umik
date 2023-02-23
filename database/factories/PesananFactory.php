@@ -34,7 +34,7 @@ class PesananFactory extends Factory
             // 'harga' => $harga, // Kolom harga perlu ga??
             // 'harga' => 10000,
             'jmlh_pesanan' => $this->faker->numberBetween(1, 3),
-            'pajak' => $this->faker->numberBetween(5000, 10000),
+            // 'pajak' => $this->faker->numberBetween(5000, 10000),
             // 'pajak' => 2000,
             'ongkir' => $this->faker->numberBetween(5000, 10000),
             // 'ongkir' => 4000,

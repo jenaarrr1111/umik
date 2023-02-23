@@ -38,6 +38,24 @@ class DataUMKMController extends Controller
             'umkm' => $this->umkm->getUnverified(),
         ]);
     }
+    public function pengajuanApprove($id_umkm){
+        $agree = $this->umkm::find($id_umkm);
+        $agree->update(['status_verifikasi' =>'terverifikasi']);
+    
+    
+        // $training->Approved = 1;
+    //    $agree->save();
+        return redirect('/umkm/pengajuan')->with('success', 'Pengajuan Terverifikasi');
+    }
+    public function pengajuanReject($id_umkm){
+        $rejected = $this->umkm::find($id_umkm);
+        $rejected->update(['status_verifikasi' =>'ditolak']);
+    
+    
+        // $training->Approved = 1;
+       // $training->save();    
+        return redirect('/umkm/pengajuan')->with('success', 'Pengajuan DiTolak');
+    }
     public function getNotif()
     {
         return view('partials.notification', [

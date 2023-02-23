@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\ApiControllers\DataProdukController;
 use App\Http\Controllers\ApiControllers\DataUMKMController;
-use App\Http\Controllers\ApiControllers\DataUserController;
 use App\Http\Controllers\ApiControllers\ProfileController;
+use App\Http\Controllers\ApiControllers\PromoController;
 use App\Http\Controllers\ApiControllers\SignInController;
+use App\Http\Controllers\ApiControllers\SignInUMKMController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,34 +24,37 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 }); */
 
-/*
- * [[ API USER ]]
- */
-// Menampilkan semua user data
-Route::get('/users', [DataUserController::class, 'getData']);
+// USERS / PROFILE
+Route::post('/register', [SignInController::class, 'setData']); // Register user
+Route::post('/login', [SignInController::class, 'login'])->middleware('notAuthenticated');
 
-// Register user
-Route::post('/register', [SignInController::class, 'setData']);
-
-// Login user
-Route::post('/login', [SignInController::class, 'validasi']);
-
-// Update data user dengan id = {id}
-Route::put('/users/{id}', [ProfileController::class, 'setData']);
-
-// Menampilkan detail user dengan id = {id}
-Route::get('/users/{id}', [ProfileController::class, 'getData']);
-
-// Menghapus data user
-Route::delete('/users/{id}', [ProfileController::class, 'delete']);
-
-/*
- * [[ API DATA PRODUK ]]
- */
+// KATEGORI
 Route::get('/categories', [DataProdukController::class, 'getAllCategories']);
+Route::get('/categories/{kategori}', [DataUMKMController::class, 'getProductsOnCategory']);
 
-// Ambil semua UMKM yg punya produk yg sesuai kategori
-Route::get('categories/{kategori}', [DataUMKMController::class, 'getProductsOnCategory']);
+// User perlu login dulu utk bisa akses route ini (Protected Routes)
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    /* USERS / PROFILE */
+    Route::post('/logout', [SignInController::class, 'logout']); // Register user
+    Route::put('/users/{id}', [ProfileController::class, 'setData']);
+    Route::get('/users/{id}', [ProfileController::class, 'getData']);
+    Route::delete('/users/{id}', [ProfileController::class, 'delete']);
 
-// Ambil semua produk yg ada dalem UMKM tertentu
-Route::get('products/umkm/{id}', [DataProdukController::class, 'getProductsOnUmkm']);
+    /* UMKM */
+    Route::get('/umkm/{id}', [DataUMKMController::class, 'getUmkm']);
+    Route::post('/register/umkm', [SignInUMKMController::class, 'setData']);
+    Route::put('/umkm/{id}', [DataUMKMController::class, 'setData'])->middleware('role:penjual');
+    Route::delete('/umkm/{id}', [DataUMKMController::class, 'delete'])->middleware('role:penjual');
+
+    /* DATA PRODUK */
+    Route::post('/product', [DataProdukController::class, 'createProduct'])->middleware('role:penjual');
+    Route::get('/products/umkm/{id}', [DataProdukController::class, 'getProductsOnUmkm']);
+    Route::put('/product/{id}', [DataProdukController::class, 'updateProduct'])->middleware('role:penjual');
+    Route::delete('product/{id}', [DataProdukController::class, 'deleteProduct'])->middleware('role:penjual');
+
+    /* PROMO */
+    Route::post('/promo', [PromoController::class, 'createPromo'])->middleware('role:penjual');
+    Route::get('/promo', [PromoController::class, 'getPromo']);
+    Route::get('/promo/umkm/{id}', [PromoController::class, 'getPromoOnUmkm'])->middleware('role:penjual');
+    // Route::delete('/promo/{id}', [PromoController::class, 'deletePromo'])->middleware('role:penjual'); // Hati hati pake nya
+});

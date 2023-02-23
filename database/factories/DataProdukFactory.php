@@ -26,13 +26,16 @@ class DataProdukFactory extends Factory
             'umkm_id' => $umkmId,
 
             'nama_produk' => $this->faker->words(mt_rand(1, 4), true),
+            'deskripsi' => $this->faker->sentence(),
             'kategori' => $this->faker->randomElement(
                 [
                     'Minuman', 'Kopi', 'Cepat Saji', 'Aneka Nasi',
                     'Jajanan', 'Roti', 'Seafood', 'Bakmie',
                 ],
             ),
-            'harga' => $this->faker->numberBetween(5000, 500000),
+            // 'harga' => $this->faker->numberBetween(5000, 500000),
+            'harga' => $this->faker->randomElement([10000, 20000, 50000]),
+            'stok' => $this->faker->numberBetween(10, 50),
             // 'user_id' => $this->faker->unique()->numberBetween()
         ];
     }
