@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 
 // USERS / PROFILE
 Route::post('/register', [SignInController::class, 'setData']); // Register user
-Route::post('/login', [SignInController::class, 'login'])->middleware('notAuthenticated');
+Route::post('/login', [SignInController::class, 'login']);
 
 // KATEGORI
 Route::get('/categories', [DataProdukController::class, 'getAllCategories']);

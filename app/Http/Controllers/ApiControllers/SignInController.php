@@ -54,10 +54,12 @@ class SignInController extends Controller
         return response()->json($res, 200);
     }
 
-    public function logout(): JsonResponse
+    public function logout(Request $request): JsonResponse
     {
-        auth()->user()->tokens()->delete();
-        return response()->json(['message' => 'Logged out'], 200);
+        $test = auth('sanctum')->user()->tokens();
+        // auth('sanctum')->user()->tokens()->delete(); // delete semua token
+        $request->user()->currentAccessToken()->delete();
+        return response()->json(['message' => 'Logged out', 'debug' => $test], 200);
     }
 
     /**
