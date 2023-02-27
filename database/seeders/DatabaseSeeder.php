@@ -10,6 +10,7 @@ use App\Models\Pesanan;
 use App\Models\Profile;
 use App\Models\Promo;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,24 +21,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Tes utk mendefinisikan superadmin (mungkin akan dihapus di produksi)
-        Profile::firstOrCreate([
-            'nama' => 'superadmin',
-            'username' => 'superadmin',
-            'no_tlp' => '+6282962541463',
-            'email' => 'super.admin@gmail.com',
-            'password' => 'password',
-            'level_user' => 'admin_keseluruhan',
-            'created_at' => '2022-01-23 21:25:35',
-            'updated_at' => '2022-01-23 21:25:35',
+        Profile::factory(10)->create([
+            'level_user' => 'penjual',
+            'password' => Hash::make('password')
         ]);
-
-        Profile::factory(4)->create(['level_user' => 'penjual']);
-        Profile::factory(6)->create();
-        DataUmkm::factory(4)->create();
-        DataProduk::factory(20)->create();
-        Promo::factory(3)->create();
-        Promo::factory(2)->create();
+        Profile::factory(20)->create(['password' => Hash::make('password')]);
+        DataUmkm::factory(10)->create();
+        DataProduk::factory(40)->create();
+        Promo::factory(7)->create();
+        // Promo::factory(2)->create();
         Pesanan::factory(20)->create();
 
         // \App\Models\User::factory()->create([

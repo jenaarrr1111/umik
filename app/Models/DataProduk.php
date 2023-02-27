@@ -19,6 +19,7 @@ class DataProduk extends Model
         'umkm_id',
         'nama_produk',
         'deskripsi',
+        'gbr_produk',
         'kategori',
         'harga',
         'stok',

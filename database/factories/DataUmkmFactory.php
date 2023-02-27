@@ -20,7 +20,7 @@ class DataUmkmFactory extends Factory
             // Utk sementara buat foreign key user_id di tabel alamat_umkm jadi antara 2 - 5
             // 'user_id' => Profile::where('level_user', 'penjual')->inRandomOrder()->value('id'),
             'user_id' => $this->faker->unique()
-                ->numberBetween(2, 5),
+                ->numberBetween(2, 11),
 
             'nama_umkm' => $this->faker->unique()->company(),
             'email_umkm' => $this->faker->unique()->companyEmail(),
