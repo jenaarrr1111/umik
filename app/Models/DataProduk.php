@@ -19,6 +19,7 @@ class DataProduk extends Model
         'umkm_id',
         'nama_produk',
         'deskripsi',
+        'gbr_produk',
         'kategori',
         'harga',
         'stok',
@@ -60,12 +61,12 @@ class DataProduk extends Model
     {
         if (request('search')) {
             $produk = DB::table($this->table)
-                ->where('user_id', '=', $id)
+                ->where('umkm_id', '=', $id)
                 ->where('nama_produk', 'like', '%' . request('search') . '%')
                 ->get();
         } else {
             $produk = DB::table($this->table)
-                ->where('user_id', '=', $id)
+                ->where('umkm_id', '=', $id)
                 ->get();
         }
 

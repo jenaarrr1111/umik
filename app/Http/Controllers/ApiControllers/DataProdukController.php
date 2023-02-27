@@ -62,6 +62,7 @@ class DataProdukController extends Controller
             'umkm_id' => 'required',
             'nama_produk' => 'required|max:255',
             'deskripsi' => 'nullable|max:3000',
+            'gbr_produk' => 'image',
             'kategori' => 'required',
             'harga' => 'required|max:100',
             'stok' => 'required|integer|max:300',

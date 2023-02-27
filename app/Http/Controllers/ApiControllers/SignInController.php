@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Profile;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -32,16 +30,10 @@ class SignInController extends Controller
             ], 409);
         }
 
-        $password = DB::table('profile')
-            ->select('password')
-            ->where('email', '=', $request['email'])
-            ->first()
-            ->password;
-
-        if (!Hash::check($request['password'], $password)) {
+        if (!$user || !Hash::check($request['password'], $user['password'])) {
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal login. Kredensial tidak sesuai'
+                'message' => 'Gagal login. Email atau password tidak sesuai.'
             ], 401);
         }
 
@@ -69,7 +61,7 @@ class SignInController extends Controller
     {
         // Mungkin bisa pakai store, supaya ga ngetik berulang"? (udh 2x ngulang)
         $validator = Validator::make($request->all(), [
-            'username' => 'required',
+            'username' => 'required|unique:profile',
             'nama' => 'required',
             'no_tlp' => 'required',
             'email' => 'required|email|unique:profile',
@@ -79,8 +71,8 @@ class SignInController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'messages' => $validator->errors(),
-            ], 403);
+                'message' => $validator->errors(),
+            ], 409);
         }
 
         // Hash Password

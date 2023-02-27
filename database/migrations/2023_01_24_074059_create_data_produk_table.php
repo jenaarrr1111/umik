@@ -24,6 +24,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('nama_produk');
             $table->longText('deskripsi')->nullable();
+            $table->string('gbr_produk')->nullable();
             $table->string('kategori');
             $table->decimal('harga');
             $table->integer('stok');

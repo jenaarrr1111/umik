@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" class="h-full">
 
@@ -6,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Utk sementara pake cdn, krn sebelum pake cdn, ada class yg ga punya efek sama sekali -->
     <script src="https://cdn.tailwindcss.com"></script>
     @vite('resources/css/app.css')
@@ -20,7 +19,7 @@
         <div class="logo-container py-2 md:py-4 border-gray-600 bg-white">
             <a href="/" class="h-full md:w-11/12 mx-auto flex align-middle">
 
-                <img class="w-32 mr-2" src="{{url('umik.png')}}" alt="UMIK Logo">
+                <img class="w-32 mr-2" src="{{asset('storage/umik.png')}}" alt="UMIK Logo">
 
             </a>
         </div>
