@@ -87,6 +87,21 @@ class DataUmkm extends Model
 
         return $umkm;
     }
+    public function GetGraph()  
+    {
+        $umkm = DB::table('data_umkm AS a')
+        
+            ->join('data_produk as b','a.id','=','b.umkm_id')
+            ->join('pesanan as c','b.id','=','c.produk_id')
+            ->selectRaw('DISTINCT(a.nama_umkm),a.id,sum(c.jmlh_pesanan) as Total_pesanan' )
+            ->groupBy('a.id')
+            ->where('status_verifikasi', '=', 'terverifikasi')
+            ->orderby('Total_pesanan','desc')
+            ->get();
+
+            // SELECT DISTINCT(a.nama_umkm),a.id,sum(c.jmlh_pesanan) as Total_pesanan FROM data_umkm AS a join data_produk as b on a.id=b.umkm_id join pesanan as c on b.id=c.produk_id group by a.id order by Total_pesanan desc;
+        return $umkm;
+    }
 
     public function getTotalUnverified(): int
     {

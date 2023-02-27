@@ -30,6 +30,50 @@ class DataUMKMController extends Controller
             'Total' => $this->umkm->getTotalUnverified(),
         ]);
     }
+    public function GetGraph()
+
+    {
+        // dd($this->umkm->GetGraph());
+        $data = $this->umkm->GetGraph();
+        $labelsBarChart = [];
+        $data_chart = [];
+        foreach ($data as $umkm){
+            $labelsBarChart[] = $umkm->nama_umkm;
+            $data_chart[] = $umkm->Total_pesanan;
+        }
+        // dd(json_encode($umkm_chart));
+        return view('main-content.dashboard.index', ['title' => 'UMKM','labelsBarChart' => $labelsBarChart, 'data_chart' => $data_chart]);
+    }
+    public function GetUmkmList()
+
+    {
+        // dd($this->umkm->GetGraph());
+        return view('main-content.dashboard.dashboard_umkm', [
+            'title' => 'List Umkm',
+            
+            'umkm' => $this->umkm->GetGraph(),
+        ]);
+    }
+    public function GetUmkm($id)
+
+    {
+        $data = $this->umkm->GetGraph($id);
+        $labelsBarChart = [];
+        $data_chart = [];
+        foreach ($data as $umkm){
+            $nama = $umkm->nama_umkm;
+            $labelsBarChart[] = $umkm->nama_umkm;
+            $data_chart[] = $umkm->Total_pesanan;
+        }
+        // dd($this->umkm->GetGraph());
+        return view('main-content.dashboard.index', [
+            'title' => 'Dashboard',
+            'id' => $id,
+            'namaumkm' => $nama,
+            'labelsBarChart' => $labelsBarChart,
+             'data_chart' => $data_chart
+        ]);
+    }
     public function getPengajuan()
     {
         // dd($this->umkm->getData('penjual'));

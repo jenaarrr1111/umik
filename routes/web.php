@@ -51,6 +51,10 @@ Route::get('/users', [DataUserController::class, 'getData']);
 
 // Menampilkan semua data umkm
 Route::get('/umkm', [DataUMKMController::class, 'getData']);
+Route::get('/dashboard', [DataUMKMController::class, 'GetGraph']);
+Route::get('/dashboard/list', [DataUMKMController::class, 'GetUmkmList']);
+Route::get('/', [DataUMKMController::class, 'GetGraph']);
+Route::get('/dashboard/{id}', [DataUmkmController::class, 'GetUmkm'])->whereNumber('id');
 
 /* =============== */
 
