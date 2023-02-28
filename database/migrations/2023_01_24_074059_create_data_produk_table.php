@@ -26,7 +26,7 @@ return new class extends Migration
             $table->longText('deskripsi')->nullable();
             $table->string('gbr_produk')->nullable();
             $table->string('kategori');
-            $table->decimal('harga');
+            $table->integer('harga');
             $table->integer('stok');
 
             $table->timestamps();

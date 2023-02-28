@@ -13,7 +13,7 @@
         <tr class="hover:bg-gray-100">
             <td class="md:py-3 p-2">
                 {{ $item->nama_umkm }}
-                <x-dropdown.data-produk :id_umkm="$item->user_id" />
+                <x-dropdown.data-produk :id_umkm="$item->id" />
             </td>
             <td class="md:py-3 p-2">{{ $item->nama_jln }}</td>
             <td class="md:py-3 p-2">{{ $item->email_umkm }}</td>

@@ -29,7 +29,9 @@ class DataProdukController extends Controller
 
     public function getProductsOnUmkm(int $id): JsonResponse
     {
-        $umkm = DataUmkm::find($id);
+        $umkm = DataUmkm::query()
+            ->find($id)
+            ->where('status_verifikasi', '=', 'terverifikasi');
 
         if ($umkm == null) {
             return response()->json([

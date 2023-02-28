@@ -75,6 +75,11 @@ class DataProduk extends Model
 
     public function getAllCategories(): Collection
     {
-        return DB::table($this->table)->distinct()->pluck('kategori');
+        return DB::table($this->table, as: 'p')
+            ->join('data_umkm as u', 'u.id', '=', 'p.umkm_id')
+            ->where('u.status_verifikasi', '=', 'terverifikasi')
+            ->distinct()
+            ->where('status_verifikasi', '=', 'terverifikasi')
+            ->pluck('kategori');
     }
 }

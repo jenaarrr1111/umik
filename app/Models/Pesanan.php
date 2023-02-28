@@ -21,7 +21,7 @@ class Pesanan extends Model
         // 'harga', // Kolom harga perlu ga??
         'jmlh_pesanan',
         'pajak',
-        'ongkir',
+        // 'ongkir',
         'ttl_tagihan',
         'catatan',
         'waktu_psn',
