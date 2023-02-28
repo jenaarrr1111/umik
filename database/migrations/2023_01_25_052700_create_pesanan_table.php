@@ -38,9 +38,9 @@ return new class extends Migration
 
             // $table->decimal('harga', 10, 2); // Kolom harga perlu ga??
             $table->integer('jmlh_pesanan')->default(1);
-            $table->decimal('pajak', 10, 2)->default(0);
-            $table->decimal('ongkir', 10, 2);
-            $table->decimal('total_tagihan', 10, 2)->default(0);
+            $table->integer('pajak')->default(0);
+            // $table->decimal('ongkir', 10, 2);
+            $table->integer('total_tagihan')->default(0);
             $table->longText('catatan')->nullable();
             $table->dateTime('waktu_psn');
 
@@ -100,17 +100,19 @@ return new class extends Migration
                 ELSE
                     SELECT `harga` INTO @harga FROM `data_produk` WHERE `id` = NEW.produk_id;
                     SET @promo = 0;
+
                     -- produk_id harus unik, klo gak hasil dari @promo bisa jadi lebih dari 1 baris
                     SELECT `potongan_harga` INTO @promo FROM `promo` WHERE `produk_id` = NEW.produk_id;
 
                     IF @promo > @harga THEN
                             SET @harga_stlh_promo = 0;
                     ELSE
+                            -- klo promo nya ga ada, berarti dikurangi 0
                             SET @harga_stlh_promo = @harga - @promo;
                     END IF;
 
-                    SET NEW.pajak = @harga * NEW.jmlh_pesanan * 0.1;
-                    SET NEW.total_tagihan = @harga_stlh_promo * NEW.jmlh_pesanan + NEW.pajak + NEW.ongkir;
+                    SET NEW.pajak = @harga * NEW.jmlh_pesanan * 0.20;
+                    SET NEW.total_tagihan = @harga_stlh_promo * NEW.jmlh_pesanan + NEW.pajak;
                 END IF;
             END
         ');

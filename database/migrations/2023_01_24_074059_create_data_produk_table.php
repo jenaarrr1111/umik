@@ -26,7 +26,11 @@ return new class extends Migration
             $table->longText('deskripsi')->nullable();
             $table->string('gbr_produk')->nullable();
             $table->string('kategori');
-            $table->decimal('harga');
+            $table->foreign('kategori')
+                ->references('nama_kategori')
+                ->on('kategori')
+                ->onDelete('cascade');
+            $table->integer('harga');
             $table->integer('stok');
 
             $table->timestamps();

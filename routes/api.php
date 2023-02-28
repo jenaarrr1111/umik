@@ -32,6 +32,8 @@ Route::post('/login', [SignInController::class, 'login'])->middleware('notAuthen
 Route::get('/categories', [DataProdukController::class, 'getAllCategories']);
 Route::get('/categories/{kategori}', [DataUMKMController::class, 'getProductsOnCategory']);
 
+Route::get('/products/umkm/{id}', [DataProdukController::class, 'getProductsOnUmkm']);
+
 // User perlu login dulu utk bisa akses route ini (Protected Routes)
 Route::group(['middleware' => ['auth:sanctum']], function () {
     /* USERS / PROFILE */
@@ -48,7 +50,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     /* DATA PRODUK */
     Route::post('/product', [DataProdukController::class, 'createProduct'])->middleware('role:penjual');
-    Route::get('/products/umkm/{id}', [DataProdukController::class, 'getProductsOnUmkm']);
     Route::put('/product/{id}', [DataProdukController::class, 'updateProduct'])->middleware('role:penjual');
     Route::delete('product/{id}', [DataProdukController::class, 'deleteProduct'])->middleware('role:penjual');
 
@@ -56,5 +57,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/promo', [PromoController::class, 'createPromo'])->middleware('role:penjual');
     Route::get('/promo', [PromoController::class, 'getPromo']);
     Route::get('/promo/umkm/{id}', [PromoController::class, 'getPromoOnUmkm'])->middleware('role:penjual');
-    // Route::delete('/promo/{id}', [PromoController::class, 'deletePromo'])->middleware('role:penjual'); // Hati hati pake nya
+
+    /* PESANAN */
 });

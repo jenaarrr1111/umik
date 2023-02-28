@@ -36,7 +36,7 @@ class PesananFactory extends Factory
             'jmlh_pesanan' => $this->faker->numberBetween(1, 3),
             // 'pajak' => $this->faker->numberBetween(5000, 10000),
             // 'pajak' => 2000,
-            'ongkir' => $this->faker->numberBetween(5000, 10000),
+            // 'ongkir' => $this->faker->numberBetween(5000, 10000),
             // 'ongkir' => 4000,
 
             'catatan' => $this->faker->sentence(),
