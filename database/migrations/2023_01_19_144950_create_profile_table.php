@@ -32,17 +32,17 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        $password = Hash::make('password');
-        Profile::firstOrCreate([
-            'nama' => 'superadmin',
-            'username' => 'superadmin',
-            'no_tlp' => '+6282962541463',
-            'email' => 'super.admin@gmail.com',
-            'password' => $password,
-            'level_user' => 'admin_keseluruhan',
-            'created_at' => '2022-01-23 21:25:35',
-            'updated_at' => '2022-01-23 21:25:35',
-        ]);
+        // $password = Hash::make('password');
+        // Profile::firstOrCreate([
+        //     'nama' => 'superadmin',
+        //     'username' => 'superadmin',
+        //     'no_tlp' => '+6282962541463',
+        //     'email' => 'super.admin@gmail.com',
+        //     'password' => $password,
+        //     'level_user' => 'admin_keseluruhan',
+        //     'created_at' => '2022-01-23 21:25:35',
+        //     'updated_at' => '2022-01-23 21:25:35',
+        // ]);
     }
 
     /**
