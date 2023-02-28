@@ -42,7 +42,7 @@ class DataUMKMController extends Controller
             $data_chart[] = $umkm->Total_pesanan;
         }
         // dd(json_encode($umkm_chart));
-        return view('main-content.dashboard.index', ['title' => 'UMKM','labelsBarChart' => $labelsBarChart, 'data_chart' => $data_chart]);
+        return view('main-content.dashboard.index', ['title' => 'UMKM','namaumkm' => '','labelsBarChart' => $labelsBarChart, 'data_chart' => $data_chart]);
     }
     public function GetUmkmList()
 
@@ -55,23 +55,31 @@ class DataUMKMController extends Controller
         ]);
     }
     public function GetUmkm($id)
-
     {
+        $data = $this->umkm->GetDashDetail($id);
         $data = $this->umkm->GetGraph($id);
+        $getnama = $this->umkm::find($id)->nama_umkm;
+        $kota = $this->umkm::find($id)->kota;
+        $gettotal = $this->umkm->GetDashDetail($id)->value('Total_pesanan');
         $labelsBarChart = [];
         $data_chart = [];
+
         foreach ($data as $umkm){
-            $nama = $umkm->nama_umkm;
+            $total = $umkm->Total_pesanan;
             $labelsBarChart[] = $umkm->nama_umkm;
             $data_chart[] = $umkm->Total_pesanan;
+
+            // dd($this->umkm::find($id));
+
         }
-        // dd($this->umkm->GetGraph());
+
         return view('main-content.dashboard.index', [
             'title' => 'Dashboard',
-            'id' => $id,
-            'namaumkm' => $nama,
+            'namaumkm' => $getnama,
+            'kota' => $kota,
             'labelsBarChart' => $labelsBarChart,
-             'data_chart' => $data_chart
+             'data_chart' => $data_chart,
+             'total' => $gettotal
         ]);
     }
     public function getPengajuan()

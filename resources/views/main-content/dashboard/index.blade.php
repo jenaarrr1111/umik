@@ -6,8 +6,11 @@
 
 
     <div class="flex items-baseline"> {{-- Nama UMKM --}}
-        <h2 class="text-2xl font-bold my-2">UMKM :</h2>
-        
+    @if ($namaumkm)
+            <h2 class="text-2xl font-bold my-2">{{$namaumkm}},{{$kota}}</h2>
+    @else
+            <h2 class="text-2xl font-bold my-2"></h2>
+    @endif
             <span class="ml-1"><a href="/dashboard/list"><svg width="30" height="17" viewBox="0 0 30 17" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect width="30" height="17" fill="url(#pattern0)"/> <defs><pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1"> <use xlink:href="#image0_838_105" transform="matrix(0.0062963 0 0 0.0111111 0.216667 0)"/> </pattern> <image id="image0_838_105" width="90" height="90" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAABWklEQVR4nO3avUoDQRRA4aPFHfXFBRGsLfQhLMI+kY2F4A+WkYWtQv5A9+7M7PlgId3ce9hkAwlIkiRJkiRJkiRJkiRJkupxMV1proFH4At4A+6AQr8KcA+8Az/AE3CTcfAYebtzbTqNXabddvd9nvvg8a3zuefgHmOXA5HH6xu4nHuAjwOH9xS7HIm8nRrM7uHIAD3ELicib6cGVQzSauxS224BvJwYaACuaEfUulO1g/W4S/UD9rRDM4P2MHtzA9PmzM0NHg3N2uwC0cCMzS8SFc/WzUJR4UzdLRYVzdLtglHBDCliwUVXE3nJhWNtkZdYfLWRMwOsPnJGCCMnBDFyQhgjJwSKtT/4zhV/CGXkhNjhnTz/nR1Gzvm5f9Pp3x1SxRl3qw++hWMPfruYP7aRE2IbOSH24MfF/LEHI/+/AtwCr9M1vvYrnCRJkiRJkiRJkiRJkiSJZL/HXxTfMSb/iQAAAABJRU5ErkJggg=="/></defs></svg></a></span>
 </div>
     <main class="md:columns-2">
@@ -17,13 +20,20 @@
             <div>Transaksi</div>
         </div> 
         <div class="grid gap-2"> {{-- Card Body--}}
-          
+                  @if ($namaumkm)    
             <div class="font-bold mt-2">
                 Jumlah Transaksi
             </div>
-            <div class="text-2xl font-bold">458</div>
-            <div class="mt-20">
 
+            <div class="text-2xl font-bold">{{$total}}</div>
+            <div class="mt-20">
+@else
+<div class="font-bold mt-2">
+                Tidak Ada Transaksi
+            </div>
+<div class="text-2xl font-bold"></div>
+            <div >
+@endif
           </div>
           </div>
     </div>
@@ -33,6 +43,8 @@
         <div class="text-xl font-bold flex justify-between items-center mb-4">
             <div>Penjualan Terlaris</div>
         </div> 
+        @if ($namaumkm)    
+
         <div class="grid gap-2"> {{-- Card Body--}}
             <div class="mt-4">
                 <table class="w-full text-sm">
@@ -55,6 +67,13 @@
                         </tr>
                     </tbody>
                 </table>
+                @else
+                <div class="font-bold">
+                Tidak Ada Transaksi
+            </div>
+<div class="mt-5"></div>
+            <div >
+            @endif
             </div>
         </div>
         </main>
