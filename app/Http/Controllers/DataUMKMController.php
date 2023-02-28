@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DataUmkm;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class DataUMKMController extends Controller
 {
@@ -35,6 +36,7 @@ class DataUMKMController extends Controller
     {
         // dd($this->umkm->GetGraph());
         $data = $this->umkm->GetGraph();
+        $tahun = Carbon::now()->year;
         $labelsBarChart = [];
         $data_chart = [];
         foreach ($data as $umkm){
@@ -42,7 +44,7 @@ class DataUMKMController extends Controller
             $data_chart[] = $umkm->Total_pesanan;
         }
         // dd(json_encode($umkm_chart));
-        return view('main-content.dashboard.index', ['title' => 'UMKM','namaumkm' => '','labelsBarChart' => $labelsBarChart, 'data_chart' => $data_chart]);
+        return view('main-content.dashboard.index', ['title' => 'UMKM','tahun' => $tahun,'namaumkm' => '','labelsBarChart' => $labelsBarChart, 'data_chart' => $data_chart]);
     }
     public function GetUmkmList()
 
@@ -61,6 +63,7 @@ class DataUMKMController extends Controller
         $getnama = $this->umkm::find($id)->nama_umkm;
         $kota = $this->umkm::find($id)->kota;
         $gettotal = $this->umkm->GetDashDetail($id)->value('Total_pesanan');
+        $tahun = Carbon::now()->year;
         $labelsBarChart = [];
         $data_chart = [];
 
@@ -77,6 +80,8 @@ class DataUMKMController extends Controller
             'title' => 'Dashboard',
             'namaumkm' => $getnama,
             'kota' => $kota,
+            'menu' => $this->umkm->GetDashProduct($id),
+            'tahun' => $tahun ,
             'labelsBarChart' => $labelsBarChart,
              'data_chart' => $data_chart,
              'total' => $gettotal

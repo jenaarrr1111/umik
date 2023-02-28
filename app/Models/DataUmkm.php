@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-
+use Carbon\Carbon;
 class DataUmkm extends Model
 {
     use HasFactory;
@@ -96,6 +96,7 @@ class DataUmkm extends Model
             ->selectRaw('DISTINCT(a.nama_umkm),a.id,sum(c.jmlh_pesanan) as Total_pesanan' )
             ->groupBy('a.id')
             ->where('status_verifikasi', '=', 'terverifikasi')
+            ->whereYear('c.created_at', Carbon::now()->year)
             ->orderby('Total_pesanan','desc')
             ->get();
 
@@ -114,6 +115,24 @@ class DataUmkm extends Model
             ->where('status_verifikasi', '=', 'terverifikasi')
             ->where('a.id', $id)
             ->orderby('Total_pesanan','desc')
+            ->get();
+
+            // SELECT DISTINCT(a.nama_umkm),a.id,sum(c.jmlh_pesanan) as Total_pesanan FROM data_umkm AS a join data_produk as b on a.id=b.umkm_id join pesanan as c on b.id=c.produk_id group by a.id order by Total_pesanan desc;
+        // dd($umkm);
+            return $umkm;
+    }
+    public function GetDashProduct($id)  
+    {
+        $umkm = DB::table('data_umkm AS a')
+        
+            ->join('data_produk as b','a.id','=','b.umkm_id')
+            ->join('pesanan as c','b.id','=','c.produk_id')
+            ->selectRaw('DISTINCT (b.id),b.nama_produk,a.id,sum(c.jmlh_pesanan) as Total_pesanan' )
+            ->groupBy('b.id')
+            ->where('status_verifikasi', '=', 'terverifikasi')
+            ->where('a.id', $id)
+            ->orderby('Total_pesanan','desc')
+            ->LIMIT(3)
             ->get();
 
             // SELECT DISTINCT(a.nama_umkm),a.id,sum(c.jmlh_pesanan) as Total_pesanan FROM data_umkm AS a join data_produk as b on a.id=b.umkm_id join pesanan as c on b.id=c.produk_id group by a.id order by Total_pesanan desc;

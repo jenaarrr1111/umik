@@ -53,22 +53,17 @@
                         <th class="p-2">Jumlah Terjual</th>
                     </thead>
                     <tbody class="text-center">
+                        @foreach($menu as $umkm)
                         <tr>
-                            <td class="p-2">Bakmie Ayam Madu</td>
-                            <td class="p-2">57</td>
+                            <td class="p-2">{{$umkm->nama_produk}}</td>
+                            <td class="p-2">{{$umkm->Total_pesanan}}</td>
                         </tr>
-                        <tr>
-                            <td class="p-2">Bakmie Ayam Suwir</td>
-                            <td class="p-2">24</td>
-                        </tr>
-                        <tr>
-                            <td class="p-2">Pangsit Kukus</td>
-                            <td class="p-2">17</td>
-                        </tr>
+                        
+                        @endforeach
                     </tbody>
                 </table>
                 @else
-                <div class="font-bold">
+                <div class="font-bold mt-4">
                 Tidak Ada Transaksi
             </div>
 <div class="mt-5"></div>
@@ -80,16 +75,17 @@
     </div>
     
     <!-- Required chart.js -->
-    <div class="col-start-1 col-end-3 shadow-lg rounded-lg overflow-hidden mb-12 md:mx-8  ">
+    <div class="col-start-1 col-end-3 shadow-lg rounded-lg overflow-hidden mb-12 md:mx-8 mt-8">
     <div class="py-3 pb-4 px-5 bg-white font-bold">
-    <div class="flex items-center relative"> Januari
-    <div class="my-5 ml-auto after:content-[''] after:absolute after:inline-block after:w-28 after:h-[0.05rem] after:right-0 after:translate-y-[-1rem] after:translate-x-[0.2rem] after:bg-[rgba(9,47,105,0.28)] after:bottom-0 after:p-0 after:m-0">Bulan ini</div>
-        <x-dropdown.data-dashboard/>
         
+    <div class="ml-8 mt-4 flex items-center relative">{{$tahun}}
+    <!-- <div class="my-5 ml-auto after:content-[''] after:absolute after:inline-block after:w-28 after:h-[0.05rem] after:right-0 after:translate-y-[-1rem] after:translate-x-[0.2rem] after:bg-[rgba(9,47,105,0.28)] after:bottom-0 after:p-0 after:m-0">Bulan ini</div>
+        <x-dropdown.data-dashboard/>
+         -->
     </div>
     
-<canvas id="chartBar" height="35" style="display: block; box-sizing: border-box; width: 100px;"class="pl-4 mt-14"></canvas></div>
-    </div></div>
+<canvas id="chartBar" height="35" style="display: block; box-sizing: border-box; width: 100px;"class="pl-4 mt-8"></canvas></div>
+    </div>
 
 
 <!-- Chart bar -->
