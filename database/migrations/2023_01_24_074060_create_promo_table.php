@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('produk_id')->unique()
-                ->constrained('data_produk')
+                ->references('id')
+                ->on('data_produk')
                 ->onDelete('cascade'); // Utk ambil nama produk
             $table->integer('potongan_harga');
             // Composite attribute
