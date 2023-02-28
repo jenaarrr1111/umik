@@ -52,7 +52,6 @@ class DataUMKMController extends Controller
         // dd($this->umkm->GetGraph());
         return view('main-content.dashboard.dashboard_umkm', [
             'title' => 'List Umkm',
-            
             'umkm' => $this->umkm->GetGraph(),
         ]);
     }

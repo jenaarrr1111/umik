@@ -73,7 +73,6 @@ class DataUmkm extends Model
 
         return $umkm;
     }
-
     /**
      * Ambil data umkm yang belum terverifikasi
      */
@@ -90,7 +89,21 @@ class DataUmkm extends Model
 
     public function GetGraph()
     {
+        if (request('search')) {
+
         $umkm = DB::table('data_umkm AS a')
+
+            ->join('data_produk as b', 'a.id', '=', 'b.umkm_id')
+            ->join('pesanan as c', 'b.id', '=', 'c.produk_id')
+            ->selectRaw('DISTINCT(a.nama_umkm),a.id,sum(c.jmlh_pesanan) as Total_pesanan')
+            ->groupBy('a.id')
+            ->where('status_verifikasi', '=', 'terverifikasi')
+            ->where('a.nama_umkm', 'like', '%' . request('search') . '%')
+            ->whereYear('c.created_at', Carbon::now()->year)
+            ->orderby('Total_pesanan','desc')
+            ->get();
+        } else {
+            $umkm = DB::table('data_umkm AS a')
 
             ->join('data_produk as b', 'a.id', '=', 'b.umkm_id')
             ->join('pesanan as c', 'b.id', '=', 'c.produk_id')
@@ -100,6 +113,7 @@ class DataUmkm extends Model
             ->whereYear('c.created_at', Carbon::now()->year)
             ->orderby('Total_pesanan','desc')
             ->get();
+        }
 
         // SELECT DISTINCT(a.nama_umkm),a.id,sum(c.jmlh_pesanan) as Total_pesanan FROM data_umkm AS a join data_produk as b on a.id=b.umkm_id join pesanan as c on b.id=c.produk_id group by a.id order by Total_pesanan desc;
         // dd($umkm);
