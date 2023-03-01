@@ -42,6 +42,7 @@ class SignInController extends Controller
             'success' => true,
             'message' => 'Login Berhasil',
             'token' => $token,
+            'data' => $user,
         ];
         return response()->json($res, 200);
     }
@@ -80,12 +81,13 @@ class SignInController extends Controller
         $userInput = $request->all();
 
         $user = Profile::create($userInput);
-        $token = $user->createToken('token_utk_user')->plainTextToken;
+        // ga buat token krn rencananya di-redirect ke hlm sign_in di flutter
+        // $token = $user->createToken('token_utk_user')->plainTextToken;
         $res = [
             'success' => true,
             'message' => 'Berhasil registrasi.',
             'data' => $user,
-            'token' => $token,
+            // 'token' => $token,
         ];
 
         return response()->json($res, 201);
