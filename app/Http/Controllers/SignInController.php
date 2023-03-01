@@ -23,9 +23,11 @@ class SignInController extends Controller
  
         $email = Profile::where('email', '=', $request->email)->value('email');
         $password = Profile::where('password', '=', $request->password)->value('password');
+        $level = Profile::where('email', '=', $request->email)->value('level_user');
+
         // dd($request->email, $email);
     // if (auth()->attempt($credentials)) {
-        if ($request->email == $email && $request->password == $password) {
+        if ($request->email == $email && $request->password == $password && $level == 'admin_keseluruhan' ) {
         $request->session()->regenerate();
 
         return redirect('/dashboard');
