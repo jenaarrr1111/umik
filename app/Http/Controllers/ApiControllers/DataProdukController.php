@@ -45,6 +45,14 @@ class DataProdukController extends Controller
             ->latest()
             ->get();
 
+        $kategori = $this->dataProduk->query()
+            ->distinct()
+            ->where('umkm_id', '=', $id)
+            ->pluck('kategori');
+
+        $kategori = $kategori->toArray();
+        $kategori = implode(', ', $kategori);
+
         if (count($produk->toArray()) == 0) {
             return response()->json([
                 'success' => false,
@@ -55,6 +63,7 @@ class DataProdukController extends Controller
         return response()->json([
             'success' => true,
             'data' => $produk,
+            'kategori' => $kategori,
         ], 200);
     }
 
