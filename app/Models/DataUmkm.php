@@ -91,9 +91,9 @@ class DataUmkm extends Model
             ->where('status_verifikasi', '=', 'belum_terverifikasi')
             ->latest()
             ->get();
-
+        }
         return $umkm;
-    }
+ 
     }
     public function GetGraph()
     {
