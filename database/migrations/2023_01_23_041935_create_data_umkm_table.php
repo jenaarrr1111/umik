@@ -56,6 +56,15 @@ return new class extends Migration
                 WHERE `id` = NEW.user_id;
             END
         ');
+
+        DB::unprepared('
+            CREATE TRIGGER `ubah_level_user` BEFORE DELETE ON `data_umkm` FOR EACH ROW
+            BEGIN
+                UPDATE `profile`
+                SET level_user = "user"
+                WHERE `id` = NEW.user_id;
+            END
+        ');
     }
 
     /**
