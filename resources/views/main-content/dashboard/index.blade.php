@@ -29,7 +29,7 @@
             <div class="text-2xl font-bold">{{$total}}</div>
             <div class="mt-20">
 @else
-<div class="font-bold mt-2">
+<div class="font-bold mt-4">
                 Tidak Ada Transaksi
             </div>
 <div class="text-2xl font-bold"></div>
@@ -64,14 +64,12 @@
                     </tbody>
                 </table>
                 @else
-                <div class="font-bold mt-4">
+                <div class="font-bold mt-6">
                 Tidak Ada Transaksi
             </div>
 <div class="mt-5"></div>
-            <div >
             @endif
-            </div>
-        </div>
+        
         </main>
     </div>
      <!-- Chart Bar -->

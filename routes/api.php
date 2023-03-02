@@ -6,7 +6,6 @@ use App\Http\Controllers\ApiControllers\ProfileController;
 use App\Http\Controllers\ApiControllers\PromoController;
 use App\Http\Controllers\ApiControllers\SignInController;
 use App\Http\Controllers\ApiControllers\SignInUMKMController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,8 +30,8 @@ Route::post('/login', [SignInController::class, 'login'])->middleware('notAuthen
 // KATEGORI
 Route::get('/categories', [DataProdukController::class, 'getAllCategories']);
 Route::get('/categories/{kategori}', [DataUMKMController::class, 'getProductsOnCategory']);
-
 Route::get('/products/umkm/{id}', [DataProdukController::class, 'getProductsOnUmkm']);
+
 
 // User perlu login dulu utk bisa akses route ini (Protected Routes)
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -55,8 +54,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     /* PROMO */
     Route::post('/promo', [PromoController::class, 'createPromo'])->middleware('role:penjual');
-    Route::get('/promo', [PromoController::class, 'getPromo']);
-    Route::get('/promo/umkm/{id}', [PromoController::class, 'getPromoOnUmkm'])->middleware('role:penjual');
+    Route::get('/promo/umkm/{id}', [PromoController::class, 'getPromoOnUmkm']);
+    Route::get('/allpromo', [PromoController::class, 'getAllPromo']);
+
 
     /* PESANAN */
 });

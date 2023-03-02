@@ -18,6 +18,14 @@ class PromoController extends Controller
         return $this->promo = new Promo();
     }
 
+    public function getAllPromo(): JsonResponse
+    {
+        $categories = $this->promo->getPromoList();
+        return response()->json([
+            'success' => true,
+            'data' => $categories,
+        ], 200);
+    }
     public function createPromo(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
@@ -26,7 +34,7 @@ class PromoController extends Controller
             'promo_mulai' => 'required|date',
             'promo_selesai' => 'required|date',
         ]);
-
+ 
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
@@ -57,6 +65,7 @@ class PromoController extends Controller
     {
         $umkm = DataUmkm::find($id);
 
+
         if ($umkm == null) {
             return response()->json([
                 'success' => false,
@@ -64,7 +73,7 @@ class PromoController extends Controller
             ], 404);
         }
 
-        $promo = $this->promo->getPromoOnUmkm($id);
+        $promo = $this->promo->getPromoUmkm($id);
 
         if (count($promo->toArray()) == 0) {
             return response()->json([
