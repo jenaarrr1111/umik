@@ -11,7 +11,7 @@
     </div>
 
     <div class="max-w-3xl mx-auto mb-8">
-        @include('partials.search', ['path' => '/#'])
+        @include('partials.search', ['path' => '/umkm/pengajuan'])
     </div>
 
     @if (count($umkm) == 0)

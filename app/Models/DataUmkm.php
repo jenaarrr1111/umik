@@ -78,6 +78,14 @@ class DataUmkm extends Model
      */
     public function getUnverified(): Collection
     {
+        if (request('search')) {
+        $umkm = DB::table($this->table)
+            ->select('id', 'user_id', 'nama_umkm', 'nama_jln', 'email_umkm', 'no_tlp')
+            ->where('status_verifikasi', '=', 'belum_terverifikasi')
+            ->where('nama_umkm', 'like', '%' . request('search') . '%')
+            ->latest()
+            ->get();
+        }else {               
         $umkm = DB::table($this->table)
             ->select('id', 'user_id', 'nama_umkm', 'nama_jln', 'email_umkm', 'no_tlp')
             ->where('status_verifikasi', '=', 'belum_terverifikasi')
@@ -86,7 +94,7 @@ class DataUmkm extends Model
 
         return $umkm;
     }
-
+    }
     public function GetGraph()
     {
         if (request('search')) {

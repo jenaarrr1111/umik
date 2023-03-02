@@ -94,7 +94,7 @@
     labels: labelsBarChart,
     datasets: [
       {
-        label: "Penjualan Terbanyak per Bulan",
+        label: "Penjualan Terbanyak per Tahun",
         size: 10,
         barThickness: 30,
         backgroundColor: "hsl(197.2, 94.7%, 22.4%, 0.75)",
