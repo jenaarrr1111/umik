@@ -32,7 +32,7 @@ class DataProdukController extends Controller
     public function getProductsOnUmkm(int $id): JsonResponse
     {
         $umkm = DataUmkm::query()
-            ->find($id)
+            ->where('id', '=', $id)
             ->where('status_verifikasi', '=', 'terverifikasi');
 
         if ($umkm == null) {
@@ -77,7 +77,7 @@ class DataProdukController extends Controller
             'deskripsi' => 'nullable|max:3000',
             'gbr_produk' => 'image',
             'kategori' => 'required',
-            'harga' => 'required|max:100',
+            'harga' => 'required|integer|max:100',
             'stok' => 'required|integer|max:300',
         ]);
 
@@ -113,9 +113,9 @@ class DataProdukController extends Controller
         $validator = Validator::make($request->all(), [
             'nama_produk' => 'required|max:255',
             'deskripsi_produk' => 'nullable|max:3000',
-            'harga' => 'required|max:100',
+            'harga' => 'required|integer|max:100',
             'kategori' => 'required',
-            'stok' => 'required|max:300',
+            'stok' => 'required|integer|max:300',
         ]);
 
         if ($validator->fails()) {
