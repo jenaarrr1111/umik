@@ -7,6 +7,7 @@ use App\Models\DataProduk;
 use App\Models\DataUmkm;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class DataProdukController extends Controller
@@ -20,7 +21,8 @@ class DataProdukController extends Controller
 
     public function getAllCategories(): JsonResponse
     {
-        $categories = $this->dataProduk->getAllCategories();
+        // $categories = $this->dataProduk->getAllCategories();
+        $categories = DB::table('kategori')->pluck('nama_kategori');
         return response()->json([
             'success' => true,
             'data' => $categories,
