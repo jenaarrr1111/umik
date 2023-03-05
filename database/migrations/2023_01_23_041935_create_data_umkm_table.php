@@ -49,7 +49,7 @@ return new class extends Migration
         });
 
         DB::unprepared('
-            CREATE TRIGGER `ubah_level_user` AFTER INSERT ON `data_umkm` FOR EACH ROW
+            CREATE TRIGGER `user_ke_penjual` AFTER INSERT ON `data_umkm` FOR EACH ROW
             BEGIN
                 UPDATE `profile`
                 SET level_user = "penjual"
@@ -58,11 +58,11 @@ return new class extends Migration
         ');
 
         DB::unprepared('
-            CREATE TRIGGER `ubah_level_user` BEFORE DELETE ON `data_umkm` FOR EACH ROW
+            CREATE TRIGGER `penjual_ke_user` BEFORE DELETE ON `data_umkm` FOR EACH ROW
             BEGIN
                 UPDATE `profile`
                 SET level_user = "user"
-                WHERE `id` = NEW.user_id;
+                WHERE `id` = user_id;
             END
         ');
     }
