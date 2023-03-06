@@ -69,26 +69,47 @@ class DataProdukController extends Controller
         ], 200);
     }
 
+    public function getProduct(int $id): JsonResponse
+    {
+        $product = $this->dataProduk::find($id);
+        if ($product === null) {
+            return response()->json([
+                'success' => 'false',
+                'message' => 'Produk tidak ditemukan,'
+            ], 404);
+        }
+
+        return response()->json(['data' => $product], 200);
+    }
+
     public function createProduct(Request $request): JsonResponse
     {
-        $validator = Validator::make($request->all(), [
+        $validator = $request->validate([
             'umkm_id' => 'required',
             'nama_produk' => 'required|max:255',
             'deskripsi' => 'nullable|max:3000',
             'gbr_produk' => 'image',
             'kategori' => 'required',
-            'harga' => 'required|integer|max:100',
-            'stok' => 'required|integer|max:300',
+            'harga' => 'required|integer',
+            'stok' => 'required|integer',
         ]);
 
-        if ($validator->fails()) {
+        /* if ($validator->fails()) {
             return response()->json([
                 'success' => false,
                 'message' => $validator->errors(),
             ], 409);
+        } */
+
+        // Upload the image and store the image in a folder called gbr_produk and the path get stored in the database,
+        // Remember to add the gbr_produk to the $fillable
+        if ($request->hasFile('gbr_produk')) {
+            $validator['gbr_produk'] = $request->file('gbr_produk')
+                ->store('gbr_produk', ['disk' => 'public']);
         }
 
-        $userInput = $request->all();
+        $userInput = $validator;
+        // dd($userInput);
         $produk = $this->dataProduk::create($userInput);
 
         return response()->json([

@@ -31,7 +31,7 @@ Route::post('/login', [SignInController::class, 'login'])->middleware('notAuthen
 Route::get('/categories', [DataProdukController::class, 'getAllCategories']);
 Route::get('/categories/{kategori}', [DataUMKMController::class, 'getProductsOnCategory']);
 Route::get('/products/umkm/{id}', [DataProdukController::class, 'getProductsOnUmkm']);
-
+Route::get('/products/{id}', [DataProdukController::class, 'getProduct']);
 
 // User perlu login dulu utk bisa akses route ini (Protected Routes)
 Route::group(['middleware' => ['auth:sanctum']], function () {
