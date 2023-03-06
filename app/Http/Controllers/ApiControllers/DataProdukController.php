@@ -51,6 +51,7 @@ class DataProdukController extends Controller
             ->distinct()
             ->where('umkm_id', '=', $id)
             ->pluck('kategori');
+        $namaUmkm = DataUmkm::find($id)->nama_umkm;
 
         $kategori = $kategori->toArray();
         $kategori = implode(', ', $kategori);
@@ -66,6 +67,7 @@ class DataProdukController extends Controller
             'success' => true,
             'data' => $produk,
             'kategori' => $kategori,
+            'nama_umkm' => $namaUmkm,
         ], 200);
     }
 
@@ -93,13 +95,6 @@ class DataProdukController extends Controller
             'harga' => 'required|integer',
             'stok' => 'required|integer',
         ]);
-
-        /* if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => $validator->errors(),
-            ], 409);
-        } */
 
         // Upload the image and store the image in a folder called gbr_produk and the path get stored in the database,
         // Remember to add the gbr_produk to the $fillable
@@ -130,40 +125,56 @@ class DataProdukController extends Controller
             ], 404);
         }
 
-        // Cek input user
+        // dd($request, $request->all());
+        $validator = $request->validate([
+            'umkm_id' => 'required',
+            'nama_produk' => 'nullable|max:255',
+            'deskripsi' => 'nullable|max:3000',
+            'gbr_produk' => 'nullable|image',
+            'kategori' => 'nullable|string',
+            'harga' => 'nullable|integer',
+            'stok' => 'nullable|integer',
+        ]);
+
+        /* // Cek input user
         $validator = Validator::make($request->all(), [
             'nama_produk' => 'required|max:255',
             'deskripsi_produk' => 'nullable|max:3000',
             'harga' => 'required|integer|max:100',
             'kategori' => 'required',
             'stok' => 'required|integer|max:300',
-        ]);
+        ]); */
 
-        if ($validator->fails()) {
+        /* if ($validator->fails()) {
             return response()->json([
                 'success' => false,
                 'message' => $validator->errors(),
             ], 409);
-        }
+        } */
 
-        if ($request->has('nama_produk')) {
+        if ($request->has('nama_produk') && $request['nama_produk'] != null) {
             $produk['nama_produk'] = $request['nama_produk'];
         }
 
-        if ($request->has('deskripsi')) {
+        if ($request->has('deskripsi') && $request['deskripsi'] != null) {
             $produk['deskripsi'] = $request['deskripsi'];
         }
 
-        if ($request->has('kategori')) {
+        if ($request->has('kategori') && $request['kategori'] != null) {
             $produk['kategori'] = $request['kategori'];
         }
 
-        if ($request->has('harga')) {
+        if ($request->has('harga') && $request['harga'] != null) {
             $produk['harga'] = $request['harga'];
         }
 
-        if ($request->has('stok')) {
+        if ($request->has('stok') && $request['stok'] != null) {
             $produk['stok'] = $request['stok'];
+        }
+
+        if ($request->hasFile('gbr_produk')) {
+            $produk['gbr_produk'] = $request->file('gbr_produk')
+                ->store('gbr_produk', ['disk' => 'public']);
         }
 
         $produk->save();
