@@ -59,6 +59,14 @@ class ProfileController extends Controller
     public function getData(int $id): JsonResponse
     {
         $user = Profile::find($id);
+        // dd(Profile::find($id)->level_user);
+        if (Profile::find($id)->level_user == 'penjual') {
+            $user = Profile::query()
+                ->join('data_umkm', 'data_umkm.user_id', '=', 'profile.id')
+                ->where('profile.id', '=', $id)
+                ->select(['profile.*', 'data_umkm.id as umkm_id'])
+                ->first();
+        }
 
         if ($user === null) {
             return response()->json([
