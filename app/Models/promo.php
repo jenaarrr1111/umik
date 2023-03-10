@@ -42,7 +42,7 @@ class Promo extends Model
         $promo = DB::table('data_umkm as a')
             ->join('data_produk as b', 'a.id', '=', 'b.umkm_id')
             ->join('promo as c', 'b.id', '=', 'c.produk_id')
-            ->select('a.id','b.gbr_produk','c.promo_mulai','c.promo_selesai', DB::raw('CASE WHEN NOW() > c.promo_selesai THEN "Ulangi" 
+            ->select('*','b.gbr_produk', DB::raw('CASE WHEN NOW() > c.promo_selesai THEN "Ulangi" 
             WHEN NOW() BETWEEN c.promo_mulai AND c.promo_selesai THEN "Aktif" ELSE "belum mulai" END AS status'))
             ->where('a.id', '=',$id)
             ->latest('c.created_at')
